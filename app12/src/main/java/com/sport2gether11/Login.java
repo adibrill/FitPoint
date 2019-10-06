@@ -13,7 +13,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
-
+    // change try 1
     public void onClickLogin(View v) {
         Intent i = new Intent(Login.this, MapAndMenu.class);
         startActivity(i);
