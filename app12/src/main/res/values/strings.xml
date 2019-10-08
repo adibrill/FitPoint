@@ -22,4 +22,8 @@
     <string name="title_activity_workout_log">WorkoutLog</string>
     <string name="tab_text_1">Past Workouts</string>
     <string name="tab_text_2">Future Workouts</string>
+
+    <string name="facebook_app_id">395210111399046</string>
+    <string name="fb_login_protocol_scheme">fb395210111399046</string>
+
 </resources>

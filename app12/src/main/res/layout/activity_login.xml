@@ -28,11 +28,19 @@
             android:background="#FFFFFF"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
         <EditText
             android:id="@+id/editText2"
@@ -84,7 +92,7 @@
             android:layout_marginRight="76dp"
             android:layout_marginBottom="33dp"
             android:background="#3F51B5"
-            android:text="SIGN UP WITH FACEBOOK"
+            android:text="SIGN IN WITH FACEBOOK"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

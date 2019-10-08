@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "286070254750",
+    "firebase_url": "https://fitpoint-e4673.firebaseio.com",
+    "project_id": "fitpoint-e4673",
+    "storage_bucket": "fitpoint-e4673.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286070254750:android:e5a19c273d94d8a7279f8f",
+        "android_client_info": {
+          "package_name": "com.sport2gether11"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286070254750-hr8j59g7do59ue5rlu0cojpfpm2dp0ol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPt1ip-4NgIg-HGII7he2qVkWNfRCut5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286070254750-hr8j59g7do59ue5rlu0cojpfpm2dp0ol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
