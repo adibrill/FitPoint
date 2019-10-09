@@ -80,6 +80,7 @@ public class Login extends AppCompatActivity {
         if(currenctUser != null){
             Log.d(TAG, "Currently Signed in: " + currenctUser.getEmail());
             Toast.makeText(Login.this, "Currently Logged in: " + currenctUser.getEmail(), Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MapAndMenu.class));
         }
     }
 
@@ -118,7 +119,7 @@ public class Login extends AppCompatActivity {
     }
     // change try 1
     public void onClickLogin(View v) {
-        Intent i = new Intent(Login.this, MapAndMenu.class);
+        Intent i = new Intent(Login.this, Register.class);
         startActivity(i);
     }
 }
