@@ -1,9 +1,14 @@
 package com.sport2gether11;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,9 +24,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapAndMenu extends AppCompatActivity {
-    //MapView mapView;
-   // GoogleMap googleMap;
+public class MapAndMenu extends AppCompatActivity implements OnMapReadyCallback {
+    MapView mapView;
+    GoogleMap googleMap;
+    View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +43,19 @@ public class MapAndMenu extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-    //    mapView = (MapView)findViewById(R.id.Fittersmap);
-     //   mapView.onCreate(savedInstanceState);
-      //  if (mapView != null) {
-            //googleMap = mapView.getMap();
 
-       // }
+    }
+
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle SavedInstanceState)
+    {
+        mView = inflater.inflate(R.layout.fragment_home,container,false);
+        return mView;
     }
 
 
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+    }
 }
