@@ -53,6 +53,9 @@ public class Login extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess: " + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                Intent intent = new Intent(Login.this, MapAndMenu.class);
+                startActivity(intent);
+
             }
 
             @Override
