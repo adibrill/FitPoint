@@ -19,19 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
+
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/username"
+            android:hint="Username"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
@@ -42,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="@string/password"
+            android:hint="Password"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -54,12 +55,11 @@
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
-            android:onClick="onRegisterClicked"
-            android:text="@string/action_sign_in_short"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:text="Register"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dip"
+            android:background="@color/cardview_shadow_start_color" />
 
         <!-- Link to Login Screen -->
 
@@ -68,24 +68,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@null"
-            android:onClick="onLoginClicked"
-            android:text="@string/btn_link_to_login"
+            android:text="Home Page"
             android:textAllCaps="false"
-            android:textColor="@color/com_facebook_button_send_background_color"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:background="@color/cardview_shadow_start_color" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
