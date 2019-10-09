@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.facebook.android:facebook-login:5.5.2'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-ads:9.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 }
 

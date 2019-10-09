@@ -27,6 +27,7 @@
             android:layout_marginBottom="223dp"
             android:background="#FFFFFF"
             android:ems="10"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,11 +37,20 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="254dp"
+            android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginStart="81dp"
+            android:layout_marginLeft="81dp"
+            android:layout_marginTop="525dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginRight="76dp"
+            android:layout_marginBottom="47dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editText2"
@@ -54,6 +64,7 @@
             android:layout_marginBottom="154dp"
             android:background="#FFFFFF"
             android:ems="10"
+            android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,23 +92,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="254dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="81dp"
-            android:layout_marginLeft="81dp"
-            android:layout_marginTop="520dp"
-            android:layout_marginEnd="76dp"
-            android:layout_marginRight="76dp"
-            android:layout_marginBottom="33dp"
-            android:background="#3F51B5"
-            android:text="SIGN IN WITH FACEBOOK"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
