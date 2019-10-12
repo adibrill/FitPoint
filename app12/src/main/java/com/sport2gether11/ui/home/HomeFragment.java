@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -28,13 +29,39 @@ import com.sport2gether11.R;
 import static android.content.Context.LOCATION_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     SupportMapFragment SMF;
     private HomeViewModel homeViewModel;
     GoogleMap gmap;
     MapView mapview;
-    View mview;
+    //View mview;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapview.onResume();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapview.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapview.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapview.onDestroy();
+    }
+
+    private boolean mapSupported = true;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,28 +71,42 @@ public class HomeFragment extends Fragment{
 
 
 
-
-        mview = inflater.inflate(R.layout.fragment_home,container,false);
+        View mview = inflater.inflate(R.layout.fragment_home,container,false);
         //mv.onCreate(savedInstanceState);
         SMF = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.Fittersmap);
-
-
+        mapview = (MapView)mview.findViewById(R.id.Fittersmap);
+        mapview.onCreate(savedInstanceState);
+        mapview.getMapAsync(this);
         return mview;
     }
 
     public void onViewCreated(View view,Bundle savedInstanceState)
     {
         super.onViewCreated(view,savedInstanceState);
-        mapview = (MapView)mview.findViewById(R.id.Fittersmap);
 
     }
 
+    private void initializeMap(){
 
+        if (gmap == null && mapSupported){
 
+            mapview = (MapView) getActivity().findViewById(R.id.Fittersmap);
+            mapview.getMapAsync(this);
 
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        gmap = googleMap;
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.setMapType(googleMap.MAP_TYPE_NORMAL);
+
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74.044502)).title("Blahblah").snippet("blah"));
+
+        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, 74.044502)).zoom(16).bearing(0).tilt(45).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
+        MapsInitializer.initialize(getContext());
+    }
 }
-
-
-
-
-

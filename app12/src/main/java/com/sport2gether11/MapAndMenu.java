@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapAndMenu extends AppCompatActivity implements OnMapReadyCallback {
+public class MapAndMenu extends AppCompatActivity{
     MapView mapView;
     GoogleMap googleMap;
     View mView;
@@ -54,8 +54,5 @@ public class MapAndMenu extends AppCompatActivity implements OnMapReadyCallback 
 
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
 
-    }
 }

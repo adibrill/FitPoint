@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_round"
@@ -37,7 +41,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDrPEsJOx843o3ABOjNcGP3zeagtU59tE0" />
+            android:value="AIzaSyA0C4U8rnDDm-vIDmzo-EIdKDLudyC2N3k" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -55,6 +59,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
     <uses-feature
