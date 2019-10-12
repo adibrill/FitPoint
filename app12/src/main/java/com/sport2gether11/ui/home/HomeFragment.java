@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74.044502)).title("Blahblah").snippet("blah"));
 
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, 74.044502)).zoom(16).bearing(0).tilt(45).build();
+        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, -74.044502)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
         MapsInitializer.initialize(getContext());
     }
