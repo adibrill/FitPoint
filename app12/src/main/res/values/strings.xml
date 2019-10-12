@@ -16,8 +16,8 @@
     <string name="menu_send">Send</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Statistics</string>
+    <string name="title_notifications">Workouts</string>
     <string name="title_activity_map_and_menu">MapAndMenu</string>
     <string name="title_activity_workout_log">WorkoutLog</string>
     <string name="tab_text_1">Past Workouts</string>
@@ -31,6 +31,7 @@
     <string name="action_sign_in_short">Register</string>
     <string name="btn_link_to_login">Home Page</string>
     <string name="title_activity_fit_maps">Map</string>
+    <string name="title_activity_member_profile">MemberProfileActivity</string>
 
 
 </resources>

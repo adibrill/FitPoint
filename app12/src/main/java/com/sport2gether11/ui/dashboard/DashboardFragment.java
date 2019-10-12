@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.sport2gether11.R;
-import com.sport2gether11.WorkoutLog;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -33,8 +33,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        //Intent i = new Intent(getActivity(),WorkoutLog.class);
-        //startActivity(i);
+
 
         return root;
     }
