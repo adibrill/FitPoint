@@ -15,11 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,8 +28,9 @@ import com.sport2gether11.R;
 import static android.content.Context.LOCATION_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment{
 
+    SupportMapFragment SMF;
     private HomeViewModel homeViewModel;
     GoogleMap gmap;
     MapView mapview;
@@ -46,14 +47,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         mview = inflater.inflate(R.layout.fragment_home,container,false);
         //mv.onCreate(savedInstanceState);
+        SMF = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.Fittersmap);
 
-        final TextView textView = mview.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         return mview;
     }
@@ -62,32 +57,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     {
         super.onViewCreated(view,savedInstanceState);
         mapview = (MapView)mview.findViewById(R.id.Fittersmap);
-        if(mapview != null)
-        {
-            mapview.onCreate(null);
-            mapview.onResume();
-            mapview.getMapAsync(this);
-        }
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        MapsInitializer.initialize(getContext());
-        gmap = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247,-74.044502)).title("statue of liberty").snippet("aaa"));
-
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247,-74.044502)).zoom(16).bearing(0).tilt(45).build();
-
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-
-
-
 
     }
+
+
+
+
 }
 
 
