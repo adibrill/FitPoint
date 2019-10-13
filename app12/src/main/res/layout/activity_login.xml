@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/login_userName"
             android:layout_width="277dp"
             android:layout_height="58dp"
             android:layout_marginStart="67dp"
@@ -24,7 +24,7 @@
             android:layout_marginBottom="252dp"
             android:background="#FFFFFF"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Email"
             android:inputType="textPersonName"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/login_password"
             android:layout_width="282dp"
             android:layout_height="55dp"
             android:layout_marginStart="64dp"
