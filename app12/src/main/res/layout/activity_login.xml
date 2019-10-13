@@ -24,7 +24,7 @@
             android:layout_marginBottom="252dp"
             android:background="#FFFFFF"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Email"
             android:inputType="textPersonName"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
