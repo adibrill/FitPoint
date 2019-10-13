@@ -80,7 +80,7 @@
             android:layout_marginBottom="127dp"
             android:background="#FFAA2E"
             android:clickable="true"
-            android:onClick="onClickLogin"
+            android:onClick="onClickSignUp"
             android:text="Sign Up"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
