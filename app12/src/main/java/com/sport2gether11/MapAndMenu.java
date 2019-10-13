@@ -1,5 +1,6 @@
 package com.sport2gether11;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,9 @@ public class MapAndMenu extends AppCompatActivity{
     }
 
 
-
+    public void onClickMember(View v) {
+        Intent i = new Intent(this,MemberProfileActivity.class);
+        startActivity(i);
+    }
 
 }

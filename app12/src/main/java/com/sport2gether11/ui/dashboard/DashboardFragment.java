@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.sport2gether11.MemberProfileActivity;
 import com.sport2gether11.R;
 
 
@@ -30,4 +31,6 @@ public class DashboardFragment extends Fragment {
 
         return root;
     }
+
+
 }

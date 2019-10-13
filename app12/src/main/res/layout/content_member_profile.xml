@@ -4,6 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MemberProfileActivity"
-    tools:showIn="@layout/activity_member_profile"/>
+    tools:showIn="@layout/activity_member_profile">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/PartnerLayout"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/PartnerImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="239dp"
+            android:layout_marginLeft="239dp"
+            android:layout_marginTop="25dp"
+            android:padding="2dp" />
+
+        <TextView
+            android:id="@+id/PartnerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-317dp"
+            android:layout_marginTop="82dp"
+            android:layout_toRightOf="@+id/PartnerImage"
+            android:text="PartnerName"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/BestHoursData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BestHoursDisplay"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:text="Morning Hours"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/BestHoursDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/PartnerImage"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="13dp"
+            android:text="Best Hours:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/UserLevelDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BestHoursData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="9dp"
+            android:text="Usual weekly workout routine:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/UserLevelData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/UserLevelDisplay"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="0dp"
+            android:text="2-3"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/PreferencesDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/UserLevelData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="0dp"
+            android:text="Preferences:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/PreferencesData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PreferencesDisplay"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="0dp"
+            android:text="Running,Yoga,Cycling"
+            android:textSize="25dp" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PreferencesData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TimePicker
+            android:id="@+id/timepick"
+            android:layout_width="wrap_content"
+            android:layout_height="170dp"
+            android:layout_below="@id/calendarView"
+
+            android:layout_centerHorizontal="true"
+            android:descendantFocusability="blocksDescendants"
+            android:timePickerMode="spinner" />
+
+
+    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
