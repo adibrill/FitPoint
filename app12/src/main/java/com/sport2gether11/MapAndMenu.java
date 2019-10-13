@@ -86,6 +86,9 @@ public class MapAndMenu extends AppCompatActivity{
     }
 
 
-
+    public void onClickMember(View v) {
+        Intent i = new Intent(this,MemberProfileActivity.class);
+        startActivity(i);
+    }
 
 }

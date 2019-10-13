@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/login_userName"
+            android:id="@+id/editText"
             android:layout_width="277dp"
             android:layout_height="58dp"
             android:layout_marginStart="67dp"
@@ -24,7 +24,7 @@
             android:layout_marginBottom="252dp"
             android:background="#FFFFFF"
             android:ems="10"
-            android:hint="@string/username"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/login_password"
+            android:id="@+id/editText2"
             android:layout_width="282dp"
             android:layout_height="55dp"
             android:layout_marginStart="64dp"
@@ -61,7 +61,7 @@
             android:layout_marginBottom="188dp"
             android:background="#FFFFFF"
             android:ems="10"
-            android:hint="@string/password"
+            android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +80,7 @@
             android:layout_marginBottom="127dp"
             android:background="#FFAA2E"
             android:clickable="true"
-            android:onClick="onClickSignUp"
+            android:onClick="onClickLogin"
             android:text="Sign Up"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
