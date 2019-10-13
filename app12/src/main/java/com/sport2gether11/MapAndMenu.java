@@ -74,6 +74,12 @@ public class MapAndMenu extends AppCompatActivity{
                 Intent intToMain = new Intent(MapAndMenu.this, Login.class);
                 startActivity(intToMain);
                 break;
+
+            case R.id.ProfileUserSettings:
+                Toast.makeText(this, "Loading user settings", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MapAndMenu.this, ProfileSettings.class);
+                startActivity(i);
+                break;
         }
 
         return true;
