@@ -137,7 +137,7 @@ public class Register extends AppCompatActivity {
                             Log.e("MyTag", task.getException().toString());
                         } else {
 
-                            startActivity(new Intent(Register.this, Login.class));
+                            startActivity(new Intent(Register.this, ProfileSettings.class));
                             finish();
                         }
                     }
