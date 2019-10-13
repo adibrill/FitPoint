@@ -25,7 +25,7 @@
         android:icon="@drawable/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <activity
             android:name=".MemberProfileActivity"
@@ -44,10 +44,7 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".Register" />
-        <activity
-            android:name=".WorkoutLog"
-            android:label="@string/title_activity_workout_log"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".MapAndMenu"
             android:label="@string/title_activity_map_and_menu" />
