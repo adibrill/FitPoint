@@ -1,13 +1,18 @@
 package com.sport2gether11;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -23,11 +28,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MapAndMenu extends AppCompatActivity{
     MapView mapView;
     GoogleMap googleMap;
     View mView;
+
+    FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,31 @@ public class MapAndMenu extends AppCompatActivity{
 
     }
 
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle SavedInstanceState)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.barmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.LogoutButton:
+                Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Intent intToMain = new Intent(MapAndMenu.this, Login.class);
+                startActivity(intToMain);
+                break;
+        }
+
+        return true;
+    }
+
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle SavedInstanceState)
     {
         mView = inflater.inflate(R.layout.fragment_home,container,false);
         return mView;

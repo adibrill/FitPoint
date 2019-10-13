@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -31,9 +32,11 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 12345;
 
     private CallbackManager mCallbackManager;
-
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    EditText userName, userPassword;
+    Button btnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,27 @@ public class Login extends AppCompatActivity {
         mCallbackManager = CallbackManager.Factory.create();
 
         LoginButton loginButton = findViewById(R.id.login_button);
+        btnSignIn = findViewById(R.id.login_button);
+        userName = findViewById(R.id.login_userName);
+        userPassword = findViewById(R.id.login_password);
+
+        // -----------------------------------------------------------
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
+                if (mFirebaseUser != null){
+                    // toast and go to next activity, user is logged in.
+                    Intent intent = new Intent(Login.this, MapAndMenu.class);
+                    startActivity(intent);
+                }
+                else{
+                    // user not logged in
+                    Toast.makeText(Login.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        // -----------------------------------------------------------
 
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -69,11 +93,53 @@ public class Login extends AppCompatActivity {
                 Log.d(TAG, "facebook:onError", error);
             }
         });
+
+        // Listen to button clicks from login button
+/*           btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = userName.getText().toString().trim();
+                String password = userPassword.getText().toString().trim();
+
+                if (name.isEmpty()){
+                    userName.setError("Please enter user name");
+                    userName.requestFocus();
+                }
+                else if (password.isEmpty()){
+                    userPassword.setError("Please enter password");
+                    userPassword.requestFocus();
+                }
+                else if (name.isEmpty() && password.isEmpty()){
+                    Toast.makeText(Login.this, "Fields are empty", Toast.LENGTH_SHORT).show();
+                }
+                else if (!(name.isEmpty() && password.isEmpty())){
+                    mAuth.createUserWithEmailAndPassword(name, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()){
+                                Toast.makeText(Login.this, "Login error, please login again", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+
+                                Intent intent = new Intent(Login.this, MapAndMenu.class);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(Login.this, "Error occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+*/
     }
 
     @Override
     public void onStart(){
         super.onStart();
+
+        mAuth.addAuthStateListener(mAuthStateListener);
 
         // Check if user is signed in (non-null) and update UI accordingly
         FirebaseUser currenctUser = mAuth.getCurrentUser();
@@ -81,7 +147,7 @@ public class Login extends AppCompatActivity {
         if(currenctUser != null){
             Log.d(TAG, "Currently Signed in: " + currenctUser.getEmail());
             Toast.makeText(Login.this, "Currently Logged in: " + currenctUser.getEmail(), Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, MapAndMenu.class));
+            //startActivity(new Intent(this, MapAndMenu.class));
         }
     }
 
@@ -95,7 +161,6 @@ public class Login extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token){
         Log.d(TAG, "handleFacebookAccessToken: " + token);
-
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         Log.d(TAG, "Credentials: " + credential);
@@ -118,9 +183,45 @@ public class Login extends AppCompatActivity {
                         }
                 });
     }
-    // change try 1
+
+    public void onClickSignUp(View V){
+        Intent intent = new Intent(Login.this, Register.class);
+        startActivity(intent);
+    }
+
     public void onClickLogin(View v) {
-        Intent i = new Intent(Login.this, Register.class);
-        startActivity(i);
+
+        String name = userName.getText().toString();
+        final String password = userPassword.getText().toString();
+
+        if (name.isEmpty()){
+            userName.setError("Please enter user name");
+            userName.requestFocus();
+            return;
+        }
+        else if (password.isEmpty()){
+            userPassword.setError("Please enter password");
+            userPassword.requestFocus();
+            return;
+        }
+        else if (name.isEmpty() && password.isEmpty()){
+            Toast.makeText(Login.this, "Fields are empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+            mAuth.signInWithEmailAndPassword(name, password)
+                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()){
+                                Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Intent intent = new Intent(Login.this, MapAndMenu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
+        }
     }
 }
