@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,8 @@ public class ProfileSettings extends AppCompatActivity{
     LocationListener locationListener;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private NumberPicker numpicker;
+
   //  private String username = getIntent().getStringExtra("username");
   //  private String email = getIntent().getStringExtra("email");
    // private String phonenumber = getIntent().getStringExtra("phoneNumber");
@@ -58,7 +61,10 @@ public class ProfileSettings extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         mAuth = FirebaseAuth.getInstance();
-
+        numpicker = (NumberPicker)findViewById(R.id.numpicker);
+        numpicker.setMinValue(0);
+        numpicker.setMaxValue(2);
+        numpicker.setDisplayedValues( new String[] { "Morning and before Noon", "Evening and night", "All Day" } );
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
         //todo - bring all data of user from firbase
