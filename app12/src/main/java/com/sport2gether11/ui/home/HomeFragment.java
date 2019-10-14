@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sport2gether11.ProfileSettings;
 import com.sport2gether11.R;
 import com.sport2gether11.User;
 
@@ -56,6 +58,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     MapView mapview;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private double mylon = 0;
+    private double mylat = 0;
     private LocationManager locationmanager;
     private LocationListener locationlistener;
 
@@ -108,24 +112,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     }
 
-    private void initializeMap(){
-
-        if (gmap == null && mapSupported){
-
-            mapview = (MapView) getActivity().findViewById(R.id.Fittersmap);
-            mapview.getMapAsync(this);
-
-        }
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        String currentLocation;
         gmap = googleMap;
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMapType(googleMap.MAP_TYPE_NORMAL);
 
-
+        mAuth = FirebaseAuth.getInstance();
         // add other users
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -156,17 +152,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
             }
         });
-
-
         locationmanager = (LocationManager)this.getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         locationlistener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
 
-                LatLng _location = new LatLng(location.getLatitude(),location.getLongitude());
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(_location));
-                MapsInitializer.initialize(getContext());
+
                 //Log.i("Location",location.toString());
             }
 
@@ -186,8 +178,26 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             }
         };
 
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(32.085437291653534, 34.954061563709956)).zoom(16).bearing(0).build();
-       googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            // ask for permission
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+
+        }
+        else {
+
+            locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationlistener);
+            currentLocation = locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLatitude()+","+ locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLongitude();
+            mylat = Double.parseDouble(currentLocation.substring(0,currentLocation.indexOf(',')));
+            mylon = Double.parseDouble(currentLocation.substring(currentLocation.indexOf(',')+1));
+        }
+
+        //Toast.makeText( getActivity(), "got here!" , Toast.LENGTH_SHORT).show();
+
+        LatLng _location = new LatLng(mylat,mylon);
+       // Log.i("_location",_location.toString());
+        CameraPosition _currentposition = CameraPosition.builder().target(_location).zoom(16).bearing(0).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(_currentposition));
         MapsInitializer.initialize(getContext());
     }
 
@@ -198,9 +208,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         String latitude = user.getPosition().substring(0,user.getPosition().indexOf(','));
         String longtitude = user.getPosition().substring(user.getPosition().indexOf(',')+1);
 
+            MarkerOptions mo = new MarkerOptions().position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude))).title(user.getUserName()).snippet("aaa");
+            _gmap.addMarker(mo);
 
 
-        _gmap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude))).title(user.getUserName()).snippet("aaa"));
+
 
     }
 }

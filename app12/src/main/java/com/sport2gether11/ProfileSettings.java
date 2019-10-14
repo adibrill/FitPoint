@@ -139,7 +139,7 @@ public class ProfileSettings extends AppCompatActivity{
             //Toast.makeText(ProfileSettings.this, locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).toString() , Toast.LENGTH_SHORT).show();
 
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-            mDatabase.child(mAuth.getCurrentUser().getUid()).child("position"). setValue(locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLatitude()+","+ locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLongitude());
+            mDatabase.child(mAuth.getCurrentUser().getUid()).child("position").setValue(locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLatitude()+","+ locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLongitude());
             //String key = mDatabase.child(mAuth.getCurrentUser().getUid()).child("position").push().getKey();
            // Log.i("key",key.toString());
             //Toast.makeText(ProfileSettings.this, key.toString() , Toast.LENGTH_SHORT).show();
