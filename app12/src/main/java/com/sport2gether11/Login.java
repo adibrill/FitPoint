@@ -162,6 +162,10 @@ public class Login extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token){
         Log.d(TAG, "handleFacebookAccessToken: " + token);
+        if(mAuth.getCurrentUser() == null)
+        {
+            facebook = false;
+        }
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         Log.d(TAG, "Credentials: " + credential);
@@ -175,6 +179,8 @@ public class Login extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithCredential:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+
+
                                 Toast.makeText(Login.this, "Authentication Succeeded.", Toast.LENGTH_SHORT).show();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -184,7 +190,15 @@ public class Login extends AppCompatActivity {
                         }
                 });
 
-        facebook = true;
+        // new user
+      // if(facebook == false)
+       //{
+       //    Intent newFacebookIntent = new Intent(Login.this, ProfileSettings.class);
+       //    startActivity(newFacebookIntent);
+       //    finish();
+     //  }
+
+
     }
 
     public void onClickSignUp(View V){

@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity {
                                     phoneNumber,
                                     emailInput,
                                     "",
-                                    "",
+                                    password,
                                     null,
                                     0,
                                     0,
@@ -150,16 +150,18 @@ public class Register extends AppCompatActivity {
                             Log.e("MyTag", task.getException().toString());
                         } else {
 
-                            Intent i = new Intent(Register.this, ProfileSettings.class);
-                            i.putExtra("username",username);
-                            i.putExtra("email",inputEmail.toString());
-                            i.putExtra("phoneNumber",phoneNumber.toString());
 
-                            startActivity(i);
-                            finish();
                         }
                     }
                 });
+        Intent i = new Intent(Register.this, ProfileSettings.class);
+        i.putExtra("username",username);
+        i.putExtra("email",inputEmail.toString());
+        i.putExtra("phoneNumber",phoneNumber.toString());
+
+        startActivity(i);
+        finish();
+
     }
 
     public void onLoginClicked(View view) {
