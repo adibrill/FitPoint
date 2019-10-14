@@ -2,6 +2,7 @@ package com.sport2gether11.ui.home;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -40,6 +42,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sport2gether11.MemberProfileActivity;
 import com.sport2gether11.ProfileSettings;
 import com.sport2gether11.R;
 import com.sport2gether11.User;
@@ -50,7 +53,7 @@ import java.util.List;
 import static android.content.Context.LOCATION_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback{
+public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     SupportMapFragment SMF;
     private HomeViewModel homeViewModel;
@@ -113,11 +116,32 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     }
 
 
+    public boolean onLongMarkerClick(final Marker marker) {
+
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        Intent marker_intent =new Intent(getActivity(), MemberProfileActivity.class);
+        marker_intent.putExtra("PartnerUserName",marker.getSnippet());
+        //Toast.makeText( getActivity(), "got here map marker click!" , Toast.LENGTH_SHORT).show();
+        startActivity(marker_intent);
+
+
+    return true;
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         String currentLocation;
         gmap = googleMap;
+        googleMap.setOnMarkerClickListener(this);
+
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMapType(googleMap.MAP_TYPE_NORMAL);
 
@@ -208,8 +232,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         String latitude = user.getPosition().substring(0,user.getPosition().indexOf(','));
         String longtitude = user.getPosition().substring(user.getPosition().indexOf(',')+1);
 
-            MarkerOptions mo = new MarkerOptions().position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude))).title(user.getUserName()).snippet("aaa");
-            _gmap.addMarker(mo);
+            MarkerOptions mo = new MarkerOptions().position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude))).title(user.getUserName()).snippet(user.getUserName());
+
+            _gmap.addMarker(mo).showInfoWindow();
 
 
 

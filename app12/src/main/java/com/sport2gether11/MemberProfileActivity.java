@@ -12,12 +12,15 @@ import android.view.View;
 
 public class MemberProfileActivity extends AppCompatActivity {
 
+    private String partner_username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        partner_username =getIntent().getStringExtra("PartnerUserName");
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
