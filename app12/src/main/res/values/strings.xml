@@ -33,5 +33,20 @@
     <string name="title_activity_fit_maps">Map</string>
     <string name="phone_number">Phone Number</string>
     <string name="title_activity_member_profile">MemberProfileActivity</string>
+    <string-array name="Sports">
+       <item>Yoga</item>
+        <item>Running</item>
+        <item>Cycling</item>
+        <item>Basketball</item>
+        <item>Swimming</item>
+        <item>Vollyball</item>
+        <item>Tennis</item>
+        <item>MadFit</item>
+        <item>Zumba</item>
+        <item>Jogging</item>
+        <item>Surffing</item>
+        <item>Climbing</item>
+        <item>Dancing</item>
+    </string-array>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.sport2gether11;
 
+import android.icu.text.Transliterator;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
@@ -17,9 +19,9 @@ public class User {
     private int level;
     private int userAge;
 
-    private LatLng position;
+    private String position;
 
-    public User(String userName, String timePeriod, String phoneNumber, String password, String email, List<String> sports, int level, int userAge, LatLng position) {
+    public User(String userName, String phoneNumber, String email,String timePeriod, String password , List<String> sports, int level, int userAge, String position) {
         this.userName = userName;
         this.timePeriod = timePeriod;
         this.phoneNumber = phoneNumber;
@@ -38,6 +40,14 @@ public class User {
 
     }
 
+    public User(String username, String phoneNumber, String emailInput, String pos) {
+        this.userName = username;
+        this.phoneNumber = phoneNumber;
+        this.email = emailInput;
+        this.position = pos;
+
+    }
+
     public User() {
     }
 
@@ -49,11 +59,11 @@ public class User {
         this.userAge = userAge;
     }
 
-    public LatLng getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(LatLng position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 

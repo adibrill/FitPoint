@@ -21,6 +21,8 @@ import com.sport2gether11.Login;
 import com.sport2gether11.MapAndMenu;
 import com.sport2gether11.R;
 
+import java.util.List;
+
 public class Register extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword, inputUsername, inputPhoneNumber;
@@ -28,6 +30,7 @@ public class Register extends AppCompatActivity {
 
     private String userId;
     private String email;
+    private boolean facebooksign = false;
 
     private FirebaseAuth mAuth;
 
@@ -111,7 +114,13 @@ public class Register extends AppCompatActivity {
 
                                     username,
                                     phoneNumber,
-                                    emailInput
+                                    emailInput,
+                                    "",
+                                    "",
+                                    null,
+                                    0,
+                                    0,
+                                    null
 
                             );
 
@@ -137,7 +146,12 @@ public class Register extends AppCompatActivity {
                             Log.e("MyTag", task.getException().toString());
                         } else {
 
-                            startActivity(new Intent(Register.this, ProfileSettings.class));
+                            Intent i = new Intent(Register.this, ProfileSettings.class);
+                            i.putExtra("username",username);
+                            i.putExtra("email",inputEmail.toString());
+                            i.putExtra("phoneNumber",phoneNumber.toString());
+
+                            startActivity(i);
                             finish();
                         }
                     }

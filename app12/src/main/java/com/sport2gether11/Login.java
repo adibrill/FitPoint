@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    private boolean facebook = false;
     EditText userName, userPassword;
     Button btnSignIn;
 
@@ -182,6 +183,8 @@ public class Login extends AppCompatActivity {
                             }
                         }
                 });
+
+        facebook = true;
     }
 
     public void onClickSignUp(View V){
