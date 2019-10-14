@@ -9,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.TextView;
 
 public class MemberProfileActivity extends AppCompatActivity {
 
+    private TextView PartnerNameTextView;
     private String partner_username;
 
     @Override
@@ -30,6 +32,12 @@ public class MemberProfileActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        PartnerNameTextView = (TextView)findViewById(R.id.PartnerName);
+        PartnerNameTextView.setText(partner_username);
+
+
+
     }
 
 }
