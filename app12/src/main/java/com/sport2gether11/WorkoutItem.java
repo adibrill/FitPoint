@@ -7,6 +7,8 @@ public class WorkoutItem
     private int mImageResource;
     private String mName;
     private String mWorkoutTime;
+    private String mStatus;
+
 
     public WorkoutItem(int Resource,String Name1,String Workout2)
     {

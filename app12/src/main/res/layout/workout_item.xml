@@ -53,15 +53,15 @@
 
         <TextView
             android:id="@+id/WorkoutTime"
-            android:layout_width="168dp"
-            android:layout_height="45dp"
+            android:layout_width="133dp"
+            android:layout_height="39dp"
             android:layout_marginStart="124dp"
             android:layout_marginLeft="124dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="71dp"
             android:layout_marginRight="71dp"
             android:layout_marginBottom="31dp"
-            android:text="Line 2 Line 2 Line 2 Line 2 "
+            android:text="workouttime"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,18 +69,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1"
-            tools:text="Line 2 " />
+            tools:text="workouttime" />
 
         <TextView
-            android:id="@+id/workoutTime"
-            android:layout_width="109dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="16dp"
-            android:text="Line 2 Line 2 Line 2 Line 2 "
+            android:id="@+id/workoutStatus"
+            android:layout_width="62dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="191dp"
+            android:layout_marginLeft="191dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="103dp"
+            android:layout_marginRight="103dp"
+            android:text="time"
             android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="191dp"
-            tools:text="Line 2 " />
+            tools:text="status" />
 
         <Button
             android:id="@+id/button2"

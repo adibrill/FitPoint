@@ -37,6 +37,7 @@ public class NotificationsFragment extends Fragment {
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
+
         ArrayList<WorkoutItem> workoutlog = new ArrayList<>();
 
         // TODO
@@ -48,11 +49,6 @@ public class NotificationsFragment extends Fragment {
         workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,"Jenny","2019/10/18 20:00"));
 
 
-
-
-
-
-
         mRecyclerView = (RecyclerView)root.findViewById(R.id.workoutsrecycler);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this.getActivity());
@@ -60,6 +56,8 @@ public class NotificationsFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+
         return root;
     }
 }
