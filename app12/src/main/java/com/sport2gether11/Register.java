@@ -1,6 +1,8 @@
 package com.sport2gether11;
 
 import android.content.Intent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -96,6 +98,7 @@ public class Register extends AppCompatActivity {
             return;
         }
 
+
         progressBar.setVisibility(View.VISIBLE);
 
         //create user
@@ -110,6 +113,7 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()){
+
                             User user = new User(
 
                                     username,
@@ -120,7 +124,7 @@ public class Register extends AppCompatActivity {
                                     null,
                                     0,
                                     0,
-                                    null
+                                    "32.002985,34.943663"
 
                             );
 
