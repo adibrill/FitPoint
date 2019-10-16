@@ -9,12 +9,23 @@ public class WorkoutItem
     private String mWorkoutTime;
     private String mStatus;
 
+    public String getmStatus() {
+        return mStatus;
+    }
 
-    public WorkoutItem(int Resource,String Name1,String Workout2)
+    public void setmStatus(String mStatus) {
+        this.mStatus = mStatus;
+    }
+
+
+
+
+    public WorkoutItem(int Resource,String Name1,String Workout2,String status)
     {
         mImageResource = Resource;
         mName = Name1;
         mWorkoutTime=Workout2;
+        mStatus = status;
     }
 
 

@@ -20,6 +20,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         public ImageView mImageView;
         public TextView mName;
         public TextView mWorkoutTime;
+        public TextView mstatustext;
 
 
         public WorkoutsViewHolder(View itemView)
@@ -28,6 +29,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             mImageView = itemView.findViewById(R.id.PartnerImage);
             mName = itemView.findViewById(R.id.PartnerName);
             mWorkoutTime = itemView.findViewById(R.id.WorkoutTime);
+            mstatustext = itemView.findViewById(R.id.workoutStatus);
 
         }
     }
@@ -54,6 +56,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         holder.mImageView.setImageResource(currentWork.getmImageResource());
         holder.mName.setText(currentWork.getmName());
         holder.mWorkoutTime.setText(currentWork.getmWorkoutTime());
+        holder.mstatustext.setText(currentWork.getmStatus());
 
 
     }

@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sport2gether11.Login;
 import com.sport2gether11.MapAndMenu;
@@ -114,6 +116,12 @@ public class Register extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()){
 
+                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+
+                            fUser.updateProfile(profileUpdates);
+
                             User user = new User(
 
                                     username,
@@ -150,7 +158,7 @@ public class Register extends AppCompatActivity {
                                             Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
 
-                                        startActivity(i);
+                                        //startActivity(i);
                                         //finish();
 
                                     }
