@@ -119,15 +119,17 @@ public class Register extends AppCompatActivity {
                                     username,
                                     phoneNumber,
                                     emailInput,
-                                    "",
+                                    1,
                                     password,
-                                    null,
+                                    1,
                                     0,
-                                    0,
-                                    "32.002985,34.943663"
+                                    "32.002985,34.943663",
+                                    "yoga",
+                                    "yoga",
+                                    "yoga"
 
                             );
-
+                            Toast.makeText(Register.this, "User created " + username, Toast.LENGTH_SHORT).show();
                             FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,6 +138,21 @@ public class Register extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()){
                                         Toast.makeText(Register.this, "Registration Succeded!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        Intent i = new Intent(Register.this, ProfileSettings.class);
+                                        i.putExtra("username",username);
+                                        i.putExtra("email",inputEmail.toString());
+                                        i.putExtra("phoneNumber",phoneNumber.toString());
+                                        //startActivity(i);
+                                        try{
+                                            wait(2000);
+                                        }catch(Exception e){
+                                            Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        startActivity(i);
+                                        //finish();
+
                                     }
                                     else{
                                         Toast.makeText(Register.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
@@ -154,13 +171,7 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
-        Intent i = new Intent(Register.this, ProfileSettings.class);
-        i.putExtra("username",username);
-        i.putExtra("email",inputEmail.toString());
-        i.putExtra("phoneNumber",phoneNumber.toString());
 
-        startActivity(i);
-        finish();
 
     }
 
@@ -168,3 +179,4 @@ public class Register extends AppCompatActivity {
         startActivity(new Intent(this, Login.class));
     }
 }
+

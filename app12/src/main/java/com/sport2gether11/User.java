@@ -9,25 +9,30 @@ import java.util.List;
 public class User {
 
     private String userName;
-    private String timePeriod;
+    private int timePeriod;
     private String phoneNumber;
     private String password;
     private String email;
 
-    private List<String> sports;
+    private String sport1;
+    private String sport2;
+    private String sport3;
 
     private int level;
     private int userAge;
 
     private String position;
 
-    public User(String userName, String phoneNumber, String email,String timePeriod, String password , List<String> sports, int level, int userAge, String position) {
+    public User(String userName, String phoneNumber, String email,int timePeriod, String password,
+                int level, int userAge, String position, String sport1, String sport2, String sport3) {
         this.userName = userName;
         this.timePeriod = timePeriod;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.email = email;
-        this.sports = sports;
+        this.sport1 = sport1;
+        this.sport2 = sport2;
+        this.sport3 = sport3;
         this.level = level;
         this.userAge = userAge;
         this.position = position;
@@ -75,14 +80,6 @@ public class User {
         this.userName = userName;
     }
 
-    public List<String> getSports() {
-        return sports;
-    }
-
-    public void setSports(List<String> sports) {
-        this.sports = sports;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -107,11 +104,43 @@ public class User {
         this.level = level;
     }
 
-    public String getTimePeriod() {
+    public int getTimePeriod() {
         return timePeriod;
     }
 
-    public void setTimePeriod(String timePeriod) {
+    public void setTimePeriod(int timePeriod) {
         this.timePeriod = timePeriod;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSport1() {
+        return sport1;
+    }
+
+    public void setSport1(String sport1) {
+        this.sport1 = sport1;
+    }
+
+    public String getSport2() {
+        return sport2;
+    }
+
+    public void setSport2(String sport2) {
+        this.sport2 = sport2;
+    }
+
+    public String getSport3() {
+        return sport3;
+    }
+
+    public void setSport3(String sport3) {
+        this.sport3 = sport3;
     }
 }

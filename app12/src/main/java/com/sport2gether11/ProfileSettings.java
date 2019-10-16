@@ -1,6 +1,7 @@
 package com.sport2gether11;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,9 +20,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,6 +37,9 @@ public class ProfileSettings extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private NumberPicker numpicker;
+    Spinner spinner1;
+    Spinner spinner2;
+    Spinner spinner3;
 
   //  private String username = getIntent().getStringExtra("username");
   //  private String email = getIntent().getStringExtra("email");
@@ -50,8 +59,6 @@ public class ProfileSettings extends AppCompatActivity{
                 mDatabase = FirebaseDatabase.getInstance().getReference("Users");
                 mDatabase.child(mAuth.getCurrentUser().getUid()).child("position"). setValue(locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLatitude()+","+ locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLongitude());
 
-
-
             }
         }
     }
@@ -61,15 +68,53 @@ public class ProfileSettings extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         mAuth = FirebaseAuth.getInstance();
+
+        spinner1 = (Spinner) findViewById(R.id.spinnersport1);
+        spinner2 = (Spinner) findViewById(R.id.spinnersport2);
+        spinner3 = (Spinner) findViewById(R.id.spinnersport3);
+
         numpicker = (NumberPicker)findViewById(R.id.numpicker);
-        numpicker.setMinValue(0);
-        numpicker.setMaxValue(2);
+        numpicker.setMinValue(1);
+        numpicker.setMaxValue(3);
         numpicker.setDisplayedValues( new String[] { "Morning and before Noon", "Evening and night", "All Day" } );
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
         //todo - bring all data of user from firbase
+        mDatabase.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User currentUser = dataSnapshot.getValue(User.class);
+                SharedPreferences sports = getSharedPreferences("Sports", Context.MODE_PRIVATE);
+                int spinnerIndex1 = sports.getInt(currentUser.getSport1(), 0);
+                int spinnerIndex2 = sports.getInt(currentUser.getSport2(), 0);
+                int spinnerIndex3 = sports.getInt(currentUser.getSport3(), 0);
+                numpicker.setValue(currentUser.getTimePeriod());
+                spinner1.setSelection(spinnerIndex1);
+                spinner2.setSelection(spinnerIndex2);
+                spinner3.setSelection(spinnerIndex3);
 
-        //mDatabase.child(mAuth.getCurrentUser().getUid()).child("")
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -151,9 +196,5 @@ public class ProfileSettings extends AppCompatActivity{
             //Toast.makeText(ProfileSettings.this, key.toString() , Toast.LENGTH_SHORT).show();
 
         }
-
     }
-
-
-
 }
