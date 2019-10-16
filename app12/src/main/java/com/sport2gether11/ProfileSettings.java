@@ -184,6 +184,8 @@ public class ProfileSettings extends AppCompatActivity{
         }
         else
         {
+
+
             // we have permission
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationListener);
             Toast.makeText(ProfileSettings.this, "Location Updated" , Toast.LENGTH_SHORT).show();
