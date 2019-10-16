@@ -24,6 +24,10 @@ public class MemberProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         partner_username =getIntent().getStringExtra("PartnerUserName");
 
+
+
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

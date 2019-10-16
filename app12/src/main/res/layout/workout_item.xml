@@ -77,29 +77,42 @@
             android:layout_height="32dp"
             android:layout_marginStart="191dp"
             android:layout_marginLeft="191dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="103dp"
             android:layout_marginRight="103dp"
             android:text="time"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.425"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="status" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="79dp"
-            android:layout_height="78dp"
+            android:layout_width="86dp"
+            android:layout_height="37dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:background="#4BC54F"
             android:text="OK"
             android:textColor="#F7FDFDFD"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="86dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#C91F1F"
+            android:text="@android:string/cancel"
+            android:textColor="#F7FDFDFD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
