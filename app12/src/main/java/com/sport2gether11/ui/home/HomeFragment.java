@@ -179,11 +179,36 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         locationmanager = (LocationManager)this.getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         locationlistener = new LocationListener() {
+            String currentLocation;
             @Override
             public void onLocationChanged(Location location) {
+              /*
+               if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
+                    // ask for permission
+                    ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+
+                }
+                else {
+
+                    locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationlistener);
+                    currentLocation = locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLatitude()+","+ locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLongitude();
+                    mylat = Double.parseDouble(currentLocation.substring(0,currentLocation.indexOf(',')));
+                    mylon = Double.parseDouble(currentLocation.substring(currentLocation.indexOf(',')+1));
+                }
+
+                //Toast.makeText( getActivity(), "got here!" , Toast.LENGTH_SHORT).show();
+
+                LatLng _location = new LatLng(mylat,mylon);
+                // Log.i("_location",_location.toString());
+                CameraPosition _currentposition = CameraPosition.builder().target(_location).zoom(16).bearing(0).build();
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(_currentposition));
+                MapsInitializer.initialize(getContext());
 
 
                 //Log.i("Location",location.toString());
+            */
+
             }
 
             @Override
