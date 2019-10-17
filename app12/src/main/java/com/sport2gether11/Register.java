@@ -60,8 +60,7 @@ public class Register extends AppCompatActivity {
 
         // if user logged in, go to sign-in screen
         if (mAuth.getCurrentUser() != null) {
-            ///////// MIGHT BE LOCATION OF SETTINGS!!!!!!!!!!
-            ////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             startActivity(new Intent(this, Login.class));
             finish();
         }
@@ -156,21 +155,12 @@ public class Register extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()){
                                         Toast.makeText(Register.this, "Registration Succeded!", Toast.LENGTH_SHORT).show();
-                                        finish();
+
                                         Intent i = new Intent(Register.this, ProfileSettings.class);
                                         i.putExtra("username",username);
                                         i.putExtra("email",inputEmail.toString());
                                         i.putExtra("phoneNumber",phoneNumber.toString());
-                                        //startActivity(i);
-                                        try{
-                                            wait(2000);
-                                        }catch(Exception e){
-                                            Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        //startActivity(i);
-                                        //finish();
-
+                                        startActivity(i);
                                     }
                                     else{
                                         Toast.makeText(Register.this, "Registration Failed!", Toast.LENGTH_SHORT).show();

@@ -101,6 +101,10 @@ public class NotificationsFragment extends Fragment {
 
                           }
                       }
+                      else
+                      {
+                          Toast.makeText(getActivity(), "Send your first Workout!", Toast.LENGTH_SHORT).show();
+                      }
                   }
                    @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

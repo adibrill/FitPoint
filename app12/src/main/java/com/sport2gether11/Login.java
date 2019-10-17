@@ -25,6 +25,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity {
 
@@ -182,6 +184,47 @@ public class Login extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
 
 
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(user.getDisplayName()).build();
+
+                                user.updateProfile(profileUpdates);
+
+                                User user1 = new User(
+
+                                        user.getDisplayName(),
+                                        "",
+                                        "",
+                                        1,
+                                        "",
+                                        1,
+                                        0,
+                                        "32.002985,34.943663",
+                                        "yoga",
+                                        "yoga",
+                                        "yoga"
+
+                                );
+
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        //progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()){
+                                            //Toast.makeText(Register.this, "Registration Succeded!", Toast.LENGTH_SHORT).show();
+
+                                            Intent i = new Intent(Login.this, ProfileSettings.class);
+
+                                            startActivity(i);
+                                        }
+                                        else{
+                                            Toast.makeText(Login.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                });
+
+
                                 Toast.makeText(Login.this, "Authentication Succeeded.", Toast.LENGTH_SHORT).show();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -200,6 +243,10 @@ public class Login extends AppCompatActivity {
      //  }
 
 
+    }
+
+    public boolean isFacebookLoggedIn(){
+        return AccessToken.getCurrentAccessToken() != null;
     }
 
     public void onClickSignUp(View V){
