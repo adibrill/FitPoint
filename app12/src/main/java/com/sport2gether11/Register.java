@@ -51,10 +51,6 @@ public class Register extends AppCompatActivity {
         inputPhoneNumber = (EditText) findViewById(R.id.phoneNumberField);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-
-
-
-
         mAuth = FirebaseAuth.getInstance();
     }
 

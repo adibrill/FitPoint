@@ -64,17 +64,13 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
 
-       // SharedPreferences sharedPref = getActivity().getSharedPreferences("username", Context.MODE_PRIVATE);
-        //String thisuser =sharedPref.getString("username", null);
+
         String thisuser =mAuth.getCurrentUser().getDisplayName();
         Log.e("thisuser", thisuser.toString());
         workoutlog = new ArrayList<>();
 
-        // TODO
-        //add firebase data!!!
 
-       // Log.i("userdisplayname",mAuth.getCurrentUser().getDisplayName());
-        //Toast.makeText(getActivity(),mAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+
         mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
                   @Override
                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,9 +86,6 @@ public class NotificationsFragment extends Fragment {
                                  Log.e("sender", rec.toString());
                                  Log.e("sender", thisuser.toString());
                                  WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,sender,sender, time, Status);
-
-
-
                                   workoutlog.add(wi);
                               }
 

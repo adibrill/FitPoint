@@ -33,6 +33,9 @@
     <string name="title_activity_fit_maps">Map</string>
     <string name="phone_number">Phone Number</string>
     <string name="title_activity_member_profile">MemberProfileActivity</string>
+    <string name="MorningandbeforeNoon">Morning and before Noon</string>
+    <string name="Eveningandnight">Evening and night</string>
+    <string name="AllDay">All Day</string>
     <string-array name="Sports">
        <item>Yoga</item>
         <item>Running</item>
