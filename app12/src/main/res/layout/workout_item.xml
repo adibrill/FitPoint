@@ -41,6 +41,7 @@
             android:layout_marginEnd="224dp"
             android:layout_marginRight="224dp"
             android:layout_marginBottom="77dp"
+            android:onClick="onUserNameClicked"
             android:text="Line 1"
             android:textColor="@android:color/black"
             android:textSize="20sp"

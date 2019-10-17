@@ -215,4 +215,12 @@ public class MapAndMenu extends AppCompatActivity{
 
     }
 
+    public void onUserNameClicked(View v)
+    {
+        Intent i = new Intent(this,MemberProfileActivity.class);
+        final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
+        i.putExtra(partnername.getText().toString(),"PartnerUserName");
+        startActivity(i);
+    }
+
 }

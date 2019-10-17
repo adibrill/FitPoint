@@ -24,6 +24,10 @@ import android.widget.TimePicker;
 import org.w3c.dom.Text;
 
 import java.nio.charset.Charset;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Random;
 
 public class MemberProfileActivity extends AppCompatActivity {
@@ -34,8 +38,8 @@ public class MemberProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CalendarView calendarView;
     private TimePicker timePicker;
-    private String dateselected;
-    private String timeselected;
+    private String dateselected = Calendar.getInstance().getTime().toString();
+    private String timeselected = "";
 
 
     @Override
@@ -44,6 +48,7 @@ public class MemberProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         partner_username =getIntent().getStringExtra("PartnerUserName");
         mAuth = FirebaseAuth.getInstance();
         TextView bestHours = (TextView)findViewById(R.id.BestHoursData);
@@ -126,9 +131,17 @@ public class MemberProfileActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
 
 
-                byte[] array = new byte[7]; // length is bounded by 7
-                new Random().nextBytes(array);
-                String generatedString = new String(array, Charset.forName("UTF-8"));
+                int leftLimit = 97; // letter 'a'
+                int rightLimit = 122; // letter 'z'
+                int targetStringLength = 30;
+                Random random = new Random();
+                StringBuilder buffer = new StringBuilder(targetStringLength);
+                for (int i = 0; i < targetStringLength; i++) {
+                    int randomLimitedInt = leftLimit + (int)
+                            (random.nextFloat() * (rightLimit - leftLimit + 1));
+                    buffer.append((char) randomLimitedInt);
+                }
+                String generatedString = buffer.toString();
 
                 workout1.setTimeStamp(dateselected+" " + timeselected);
                 //Log.e("timeselected ",dateselected+" " + timeselected);
