@@ -2,11 +2,14 @@ package com.sport2gether11;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,6 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,12 +35,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.sport2gether11.ui.notifications.NotificationsFragment;
 
 public class MapAndMenu extends AppCompatActivity{
     MapView mapView;
     GoogleMap googleMap;
     View mView;
-
+    private FirebaseAuth mAuth;
+    private FragmentManager fmanager;
+    private DatabaseReference mDatabase;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -95,6 +109,110 @@ public class MapAndMenu extends AppCompatActivity{
     public void onClickMember(View v) {
         Intent i = new Intent(this,MemberProfileActivity.class);
         startActivity(i);
+    }
+
+    public void OnclickApproveWorkout(View v){
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
+        final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
+        String myname = mAuth.getCurrentUser().getDisplayName();
+
+        final String timestamp = timestampview.getText().toString();
+        final String partnername = partnerNameview.getText().toString();
+
+
+
+        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
+                  @Override
+                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                      if (dataSnapshot.exists()) {
+                          for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                              Workout l = npsnapshot.getValue(Workout.class);
+
+
+                              Log.e("myname ",myname + "," + l.getReceiver().toString());
+                              Log.e("partnername ",partnername + "," + l.getSender().toString());
+                              Log.e("timestamp ",timestamp + "," +l.getTimeStamp() );
+                              Log.e("pending ",l.getStatus());
+
+
+                              if((myname.equals(l.getReceiver().toString())&& partnername.equals(l.getSender().toString()))) {
+                                  if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))) {
+                                      l.setStatus("approved");
+
+                                      mDatabase.child("Workouts").child(npsnapshot.getKey()).setValue(l);
+
+                                     }
+                              }
+                          }
+                      }
+                  }
+
+                  @Override
+                  public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                  }
+                  });
+
+        // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
+        Toast.makeText(this, "Approved :)", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void OnclickCancelWorkout(View v)
+    {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
+        final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
+        String myname = mAuth.getCurrentUser().getDisplayName();
+
+        final String timestamp = timestampview.getText().toString();
+        final String partnername = partnerNameview.getText().toString();
+
+
+
+        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                        Workout l = npsnapshot.getValue(Workout.class);
+
+
+                        Log.e("myname ",myname + "," + l.getReceiver().toString());
+                        Log.e("partnername ",partnername + "," + l.getSender().toString());
+                        Log.e("timestamp ",timestamp + "," +l.getTimeStamp() );
+                        Log.e("pending ",l.getStatus());
+
+
+                        if((myname.equals(l.getReceiver().toString())&& partnername.equals(l.getSender().toString()))) {
+                            if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))) {
+
+                                l.setStatus("cancelled");
+                                mDatabase.child("Workouts").child(npsnapshot.getKey()).setValue(l);
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
+        Toast.makeText(this, "Cancelled :(", Toast.LENGTH_SHORT).show();
+
+
     }
 
 }

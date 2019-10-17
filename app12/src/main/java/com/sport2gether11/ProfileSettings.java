@@ -41,7 +41,7 @@ public class ProfileSettings extends AppCompatActivity{
     Spinner spinner2;
     Spinner spinner3;
 
-  //  private String username = getIntent().getStringExtra("username");
+    //private String username = getIntent().getStringExtra("username");
   //  private String email = getIntent().getStringExtra("email");
    // private String phonenumber = getIntent().getStringExtra("phoneNumber");
     private String userid;
@@ -79,6 +79,8 @@ public class ProfileSettings extends AppCompatActivity{
         numpicker.setDisplayedValues( new String[] { "Morning and before Noon", "Evening and night", "All Day" } );
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
+
+        /*
         //todo - bring all data of user from firbase
         mDatabase.child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
             @Override
@@ -116,6 +118,8 @@ public class ProfileSettings extends AppCompatActivity{
             }
         });
 
+
+         */
         locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 
         locationListener = new LocationListener() {
@@ -171,6 +175,7 @@ public class ProfileSettings extends AppCompatActivity{
         // write user data to firebase
 
         Intent intent = new Intent(ProfileSettings.this, MapAndMenu.class);
+        //intent.putExtra("username",username);
         startActivity(intent);
         finish();
     }

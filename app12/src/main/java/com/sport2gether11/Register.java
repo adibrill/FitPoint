@@ -1,6 +1,8 @@
 package com.sport2gether11;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -49,6 +51,10 @@ public class Register extends AppCompatActivity {
         inputPhoneNumber = (EditText) findViewById(R.id.phoneNumberField);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+
+
+
+
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -58,6 +64,8 @@ public class Register extends AppCompatActivity {
 
         // if user logged in, go to sign-in screen
         if (mAuth.getCurrentUser() != null) {
+            ///////// MIGHT BE LOCATION OF SETTINGS!!!!!!!!!!
+            ////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             startActivity(new Intent(this, Login.class));
             finish();
         }
@@ -108,6 +116,12 @@ public class Register extends AppCompatActivity {
                 .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        SharedPreferences settings = getApplicationContext().getSharedPreferences("username", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString("username",username);
+
+                        editor.commit();
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the

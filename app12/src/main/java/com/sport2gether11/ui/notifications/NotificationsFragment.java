@@ -1,11 +1,14 @@
 package com.sport2gether11.ui.notifications;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +42,20 @@ public class NotificationsFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private  ArrayList<WorkoutItem> workoutlog;
+    private  ArrayList<WorkoutItem> tempworkoutlog = new ArrayList<>();;
     private NotificationsViewModel notificationsViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        mRecyclerView = (RecyclerView)root.findViewById(R.id.workoutsrecycler);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
+       //mAdapter = new WorkoutsListAdapter(workoutlog);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+       // mRecyclerView.setAdapter(mAdapter);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -51,8 +63,11 @@ public class NotificationsFragment extends Fragment {
 
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
+       // SharedPreferences sharedPref = getActivity().getSharedPreferences("username", Context.MODE_PRIVATE);
+        //String thisuser =sharedPref.getString("username", null);
+        String thisuser =mAuth.getCurrentUser().getDisplayName();
+        Log.e("thisuser", thisuser.toString());
         workoutlog = new ArrayList<>();
 
         // TODO
@@ -60,86 +75,48 @@ public class NotificationsFragment extends Fragment {
 
        // Log.i("userdisplayname",mAuth.getCurrentUser().getDisplayName());
         //Toast.makeText(getActivity(),mAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
-        mDatabase.child("Workouts").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Workout currentWorkout = dataSnapshot.getValue(Workout.class);
+        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
+                  @Override
+                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                      if (dataSnapshot.exists()){
+                          for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
+                              Workout l=npsnapshot.getValue(Workout.class);
+                              String rec = l.getReceiver().toString();
+                              String time = l.getTimeStamp().toString();
+                              String Status = l.getStatus().toString();
+                              String sender = l.getSender().toString();
 
-                String rec = currentWorkout.getReceiver().toString();
-                String thisuser = mAuth.getCurrentUser().getDisplayName().toString();
-                String time = currentWorkout.getTimeStamp().toString();
-                String Status = currentWorkout.getStatus().toString();
-
-               // Log.e("username",currentWorkout.toString());
-
-                if(rec.equals(thisuser)) {
-                    Log.e("rec",rec.toString());
-                    Log.e("thisuser",thisuser.toString());
+                              if (rec.equals(thisuser)) {
+                                 Log.e("sender", rec.toString());
+                                 Log.e("sender", thisuser.toString());
+                                 WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,sender,sender, time, Status);
 
 
-                    try {
 
-                        workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,rec, time,Status ));
-                        Log.e("workoutlog",workoutlog.toString());
-                    }
-                    catch(Exception e)
-                    {
-                        Log.e("exception",e.toString());
-                    }
-                    }
-            }
+                                  workoutlog.add(wi);
+                              }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                              if (sender.equals(thisuser)) {
+                                  Log.e("rec", rec.toString());
+                                  Log.e("thisuser", thisuser.toString());
 
-            }
+                                  WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,rec,sender , time, Status);
+                                  workoutlog.add(wi);
+                              }
+                              mAdapter = new WorkoutsListAdapter(workoutlog);
+                             mRecyclerView.setAdapter(mAdapter);
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        }) ;
-
-        //workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,"Jenny","2019/10/15 15:00","Pending"));
-        //workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,"Andrew","2019/10/17 18:30","Canceled"));
+                          }
+                      }
+                  }
+                   @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                      }
+                      });
         //workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,"Jenny","2019/10/18 20:00","Approved"));
-
-
-        mRecyclerView = (RecyclerView)root.findViewById(R.id.workoutsrecycler);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this.getActivity());
-        mAdapter = new WorkoutsListAdapter(workoutlog);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-
         return root;
     }
 
-    public void addworkouttolist(Workout currentWorkout) {
 
-        String rec = currentWorkout.getReceiver().toString();
-        String thisuser = mAuth.getCurrentUser().getDisplayName().toString();
-        String time = currentWorkout.getTimeStamp().toString();
-        String Status = currentWorkout.getStatus().toString();
-
-        Log.e("username",currentWorkout.toString());
-
-        if(rec.equals(thisuser)) {
-              workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,rec, time,Status ));
-        }
-
-    }
 
 }

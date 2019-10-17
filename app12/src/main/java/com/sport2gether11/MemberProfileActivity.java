@@ -16,6 +16,9 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.nio.charset.Charset;
+import java.util.Random;
+
 public class MemberProfileActivity extends AppCompatActivity {
 
     private TextView PartnerNameTextView;
@@ -49,7 +52,13 @@ public class MemberProfileActivity extends AppCompatActivity {
                 Snackbar.make(view, "Workout registered", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                mDatabase.child("Workouts").child("workout3").setValue(workout1);
+
+                byte[] array = new byte[7]; // length is bounded by 7
+                new Random().nextBytes(array);
+                String generatedString = new String(array, Charset.forName("UTF-8"));
+
+
+                mDatabase.child("Workouts").child(generatedString).setValue(workout1);
 
             }
         });

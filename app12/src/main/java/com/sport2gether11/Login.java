@@ -63,6 +63,7 @@ public class Login extends AppCompatActivity {
                 if (mFirebaseUser != null){
                     // toast and go to next activity, user is logged in.
                     Intent intent = new Intent(Login.this, MapAndMenu.class);
+                    intent.putExtra("username",userName.getText());
                     startActivity(intent);
                 }
                 else{
