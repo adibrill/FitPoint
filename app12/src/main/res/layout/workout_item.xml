@@ -11,14 +11,14 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
 
         <ImageView
             android:id="@+id/PartnerImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="287dp"
             android:layout_marginRight="287dp"
@@ -54,13 +54,13 @@
 
         <TextView
             android:id="@+id/WorkoutTime"
-            android:layout_width="119dp"
+            android:layout_width="229dp"
             android:layout_height="18dp"
             android:layout_marginStart="124dp"
             android:layout_marginLeft="104dp"
             android:layout_marginTop="64dp"
-            android:layout_marginEnd="71dp"
-            android:layout_marginRight="91dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginRight="31dp"
             android:layout_marginBottom="31dp"
             android:text="workouttime"
             android:textSize="15sp"
@@ -98,7 +98,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="#4BC54F"
-            android:onClick="OnclickApproveWorkout"
             android:text="OK"
             android:textColor="#F7FDFDFD"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +111,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:background="#C91F1F"
-            android:onClick="OnclickCancelWorkout"
             android:text="@android:string/cancel"
             android:textColor="#F7FDFDFD"
             app:layout_constraintBottom_toBottomOf="parent"

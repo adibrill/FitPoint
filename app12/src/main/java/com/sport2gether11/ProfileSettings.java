@@ -69,7 +69,7 @@ public class ProfileSettings extends AppCompatActivity{
         numpicker = (NumberPicker)findViewById(R.id.numpicker);
         numpicker.setMinValue(1);
         numpicker.setMaxValue(3);
-        numpicker.setDisplayedValues( new String[] { "Morning and before Noon", "Evening and night", "All Day" } );
+        numpicker.setDisplayedValues( new String[] { getResources().getString(R.string.MorningandbeforeNoon) ,getResources().getString(R.string.Eveningandnight) , getResources().getString(R.string.AllDay)} );
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -196,9 +196,6 @@ public class ProfileSettings extends AppCompatActivity{
                               currentUser.setSport1(spinner1.getSelectedItem().toString());
                               currentUser.setSport2(spinner2.getSelectedItem().toString());
                               currentUser.setSport3(spinner3.getSelectedItem().toString());
-
-
-
                               currentUser.setTimePeriod(numpicker.getValue());
 
                               if(rb1.isSelected())
@@ -227,11 +224,8 @@ public class ProfileSettings extends AppCompatActivity{
                               finish();
                           break;
                           }
-
                       }
                   }
-
-
               }
 
               @Override
@@ -254,10 +248,6 @@ public class ProfileSettings extends AppCompatActivity{
 
                     }
                  });
-
-
-                // write user data to firebase
-
 
     }
 

@@ -107,6 +107,7 @@ public class Register extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         //create user
+
         mAuth.createUserWithEmailAndPassword(emailInput, password)
                 .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                     @Override

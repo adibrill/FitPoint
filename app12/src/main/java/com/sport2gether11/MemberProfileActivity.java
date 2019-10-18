@@ -95,13 +95,13 @@ public class MemberProfileActivity extends AppCompatActivity {
                                     switch(partner.getTimePeriod())
                                     {
                                         case 1:
-                                            bestHours.setText("Morning and before Noon");
+                                            bestHours.setText(getResources().getString(R.string.MorningandbeforeNoon));
                                             break;
                                         case 2:
-                                            bestHours.setText("Evening and night");
+                                            bestHours.setText(getResources().getString(R.string.Eveningandnight));
                                             break;
                                         case 3:
-                                            bestHours.setText("All day");
+                                            bestHours.setText(getResources().getString(R.string.AllDay));
                                             break;
                                     }
                                     switch(partner.getLevel())
@@ -167,7 +167,7 @@ public class MemberProfileActivity extends AppCompatActivity {
 
 
          ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinneritem , spinnerArray);
-             adapter.add("Choose here");
+             adapter.add(getResources().getString(R.string.Choosehere));
         adapter.setDropDownViewResource(R.layout.spinner_deopdown_item);
          worktype.setAdapter(adapter);
           worktype.setSelection(0);

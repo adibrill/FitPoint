@@ -181,18 +181,18 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithCredential:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser user1 = mAuth.getCurrentUser();
 
 
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(user.getDisplayName()).build();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(user1.getDisplayName()).build();
 
-                                user.updateProfile(profileUpdates);
+                                user1.updateProfile(profileUpdates);
 
-                                User user1 = new User(
+                                User user = new User(
 
-                                        user.getDisplayName(),
-                                        "",
-                                        "",
+                                        user1.getDisplayName(),
+                                        user1.getPhoneNumber(),
+                                        user1.getEmail(),
                                         1,
                                         "",
                                         1,
@@ -205,7 +205,7 @@ public class Login extends AppCompatActivity {
                                 );
 
                                 FirebaseDatabase.getInstance().getReference("Users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .child(user1.getUid())
                                         .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

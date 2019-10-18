@@ -70,7 +70,7 @@ public class NotificationsFragment extends Fragment {
 
 
 
-        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Workouts").orderByChild("status").addListenerForSingleValueEvent(new ValueEventListener() {
                   @Override
                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                       if (dataSnapshot.exists()){
@@ -96,7 +96,7 @@ public class NotificationsFragment extends Fragment {
                                   WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,rec,sender , time, Status,type);
                                   workoutlog.add(wi);
                               }
-                              mAdapter = new WorkoutsListAdapter(workoutlog);
+                              mAdapter = new WorkoutsListAdapter(workoutlog,getActivity());
                              mRecyclerView.setAdapter(mAdapter);
 
                           }

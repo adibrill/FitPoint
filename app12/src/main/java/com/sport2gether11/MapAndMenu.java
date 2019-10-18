@@ -119,60 +119,12 @@ public class MapAndMenu extends AppCompatActivity{
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
-        final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
-        String myname = mAuth.getCurrentUser().getDisplayName();
-
-        final String timestamp = timestampview.getText().toString();
-        final String partnername = partnerNameview.getText().toString();
-
-
-
-        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
-                  @Override
-                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                      if (dataSnapshot.exists()) {
-                          for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                              Workout l = npsnapshot.getValue(Workout.class);
-
-
-                              Log.e("myname ",myname + "," + l.getReceiver().toString());
-                              Log.e("partnername ",partnername + "," + l.getSender().toString());
-                              Log.e("timestamp ",timestamp + "," +l.getTimeStamp() );
-                              Log.e("pending ",l.getStatus());
-
-
-                              if((myname.equals(l.getReceiver().toString())&& partnername.equals(l.getSender().toString()))) {
-                                  if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))) {
-                                      l.setStatus("approved");
-
-                                      mDatabase.child("Workouts").child(npsnapshot.getKey()).setValue(l);
-
-                                     }
-                              }
-                          }
-                      }
-                  }
-
-                  @Override
-                  public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                  }
-                  });
-
-        // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
-        Toast.makeText(this, "Approved :)", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void OnclickCancelWorkout(View v)
-    {
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+        Log.e("viewvvvvv",v.toString());
 
         final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
         final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
+        final TextView typeview =(TextView)v.getRootView().findViewById(R.id.workouttypedata);
+        final String type = typeview.getText().toString();
         String myname = mAuth.getCurrentUser().getDisplayName();
 
         final String timestamp = timestampview.getText().toString();
@@ -191,11 +143,67 @@ public class MapAndMenu extends AppCompatActivity{
                         Log.e("myname ",myname + "," + l.getReceiver().toString());
                         Log.e("partnername ",partnername + "," + l.getSender().toString());
                         Log.e("timestamp ",timestamp + "," +l.getTimeStamp() );
+                        Log.e("type ",type + "," +l.getWorkOutType() );
                         Log.e("pending ",l.getStatus());
 
 
                         if((myname.equals(l.getReceiver().toString())&& partnername.equals(l.getSender().toString()))) {
-                            if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))) {
+                            if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))&& l.getWorkOutType().equals((type))) {
+                                l.setStatus("approved");
+
+                                mDatabase.child("Workouts").child(npsnapshot.getKey()).setValue(l);
+                                Log.e("approved","approved");
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
+
+        Toast.makeText(this, "Approved :)", Toast.LENGTH_SHORT).show();
+    }
+
+    public void OnclickCancelWorkout(View v)
+    {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
+        final TextView typeview =(TextView)v.getRootView().findViewById(R.id.workouttypedata);
+        final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
+        String myname = mAuth.getCurrentUser().getDisplayName();
+
+        final String timestamp = timestampview.getText().toString();
+        final String partnername = partnerNameview.getText().toString();
+        final String type = typeview.getText().toString();
+
+
+
+        mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                        Workout l = npsnapshot.getValue(Workout.class);
+
+
+                        Log.e("myname ",myname + "," + l.getReceiver().toString());
+                        Log.e("partnername ",partnername + "," + l.getSender().toString());
+                        Log.e("timestamp ",timestamp + "," +l.getTimeStamp() );
+                        Log.e("type ",type + "," +l.getWorkOutType() );
+                        Log.e("pending ",l.getStatus());
+
+
+                        if((myname.equals(l.getReceiver().toString())&& partnername.equals(l.getSender().toString()))) {
+                            if (l.getTimeStamp().equals(timestamp) && l.getStatus().equals(("pending"))&& l.getWorkOutType().equals((type))) {
 
                                 l.setStatus("cancelled");
                                 mDatabase.child("Workouts").child(npsnapshot.getKey()).setValue(l);
@@ -218,50 +226,10 @@ public class MapAndMenu extends AppCompatActivity{
 
     }
 
+    /*
     public void onUserNameClicked(View v)
     {
-        /*
-        ////// add data
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
 
-                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                        User myuser = npsnapshot.getValue(User.class);
-
-                        if(myuser.getUserName().equals(mAuth.getCurrentUser().getDisplayName()))
-                        {
-                            //Log.e("EQUALS",myuser.getUserName() + ","+ mAuth.getCurrentUser().getDisplayName());
-                            String s1 = myuser.getSport1();
-                            String s2 = myuser.getSport2();
-                            String s3 = myuser.getSport3();
-                            //Log.e("mysp",dataSnapshot.toString());
-
-                            Log.e("Preferences",s1+","+s2+","+s3);
-
-
-                            Intent i = new Intent(getApplicationContext(),MemberProfileActivity.class);
-                            final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
-                            i.putExtra(partnername.getText().toString(),"PartnerUserName");
-                            i.putExtra("sport1",s1);
-                            i.putExtra("sport2",s2);
-                            i.putExtra("sport3",s3);
-                            startActivity(i);
-
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        */
 
         Intent i = new Intent(this,MemberProfileActivity.class);
         final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
@@ -288,5 +256,5 @@ public class MapAndMenu extends AppCompatActivity{
 
         startActivity(i);
     }
-
+        */
 }

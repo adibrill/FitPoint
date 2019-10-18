@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/BestHoursData"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/BestHoursDisplay"
             android:layout_alignParentStart="true"
@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/BestHoursDisplay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/PartnerImage"
             android:layout_alignParentStart="true"
@@ -66,12 +66,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="13dp"
-            android:text="Best Hours:"
+            android:text="@string/BestHours"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/UserLevelDisplay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/BestHoursData"
             android:layout_alignParentStart="true"
@@ -79,12 +79,12 @@
             android:layout_marginStart="22dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="9dp"
-            android:text="Usual weekly workout routine:"
+            android:text="@string/rutine"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/UserLevelData"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/UserLevelDisplay"
             android:layout_alignParentStart="true"
@@ -97,7 +97,7 @@
 
         <TextView
             android:id="@+id/PreferencesDisplay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/UserLevelData"
             android:layout_alignParentStart="true"
@@ -105,12 +105,12 @@
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="0dp"
-            android:text="Preferences:"
+            android:text="@string/preferences"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/PreferencesData"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/PreferencesDisplay"
             android:layout_alignParentStart="true"
@@ -135,7 +135,7 @@
 
         <TextView
             android:id="@+id/SelectDisplay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/selectDisplay2"
             android:layout_alignParentStart="true"
@@ -143,7 +143,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="0dp"
-            android:text="Choose workout:"
+            android:text="@string/Chooseworkout"
             android:textSize="20dp" />
 
         <Spinner
