@@ -126,11 +126,42 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
-        Intent marker_intent =new Intent(getActivity(), MemberProfileActivity.class);
-        marker_intent.putExtra("PartnerUserName",marker.getSnippet());
-        //Toast.makeText( getActivity(), "got here map marker click!" , Toast.LENGTH_SHORT).show();
-        startActivity(marker_intent);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
 
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                        User myuser = npsnapshot.getValue(User.class);
+
+                        if(myuser.getUserName().equals(mAuth.getCurrentUser().getDisplayName()))
+                        {
+                            //Log.e("EQUALS",myuser.getUserName() + ","+ mAuth.getCurrentUser().getDisplayName());
+                            String s1 = myuser.getSport1();
+                            String s2 = myuser.getSport2();
+                            String s3 = myuser.getSport3();
+                            //Log.e("mysp",dataSnapshot.toString());
+
+                            Log.e("Preferences",s1+","+s2+","+s3);
+
+                            Intent marker_intent =new Intent(getActivity(), MemberProfileActivity.class);
+                            marker_intent.putExtra("PartnerUserName",marker.getSnippet());
+                            marker_intent.putExtra("sport1",s1);
+                            marker_intent.putExtra("sport2",s2);
+                            marker_intent.putExtra("sport3",s3);
+                            //Toast.makeText( getActivity(), "got here map marker click!" , Toast.LENGTH_SHORT).show();
+                            startActivity(marker_intent);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     return true;
     }

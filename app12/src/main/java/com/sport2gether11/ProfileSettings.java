@@ -196,6 +196,9 @@ public class ProfileSettings extends AppCompatActivity{
                               currentUser.setSport1(spinner1.getSelectedItem().toString());
                               currentUser.setSport2(spinner2.getSelectedItem().toString());
                               currentUser.setSport3(spinner3.getSelectedItem().toString());
+
+
+
                               currentUser.setTimePeriod(numpicker.getValue());
 
                               if(rb1.isSelected())
@@ -214,6 +217,14 @@ public class ProfileSettings extends AppCompatActivity{
                                   }
                               }
                               mDatabase.child(dataSnapshot.getKey()).setValue(currentUser);
+                              Intent intent = new Intent(ProfileSettings.this, MapAndMenu.class);
+                              intent.putExtra("sport1",spinner1.getSelectedItem().toString());
+                              intent.putExtra("sport2",spinner2.getSelectedItem().toString());
+                              intent.putExtra("sport3",spinner3.getSelectedItem().toString());
+                              Log.e("settingsIntent",spinner1.getSelectedItem().toString()+","+spinner2.getSelectedItem().toString()+","+spinner3.getSelectedItem().toString());
+
+                              startActivity(intent);
+                              finish();
                           break;
                           }
 
@@ -247,10 +258,7 @@ public class ProfileSettings extends AppCompatActivity{
 
                 // write user data to firebase
 
-                Intent intent = new Intent(ProfileSettings.this, MapAndMenu.class);
-        //intent.putExtra("username",username);
-        startActivity(intent);
-        finish();
+
     }
 
     @Override

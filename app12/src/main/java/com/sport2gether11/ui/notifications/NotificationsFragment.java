@@ -42,8 +42,7 @@ public class NotificationsFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private  ArrayList<WorkoutItem> workoutlog;
-    private  ArrayList<WorkoutItem> tempworkoutlog = new ArrayList<>();;
-    private NotificationsViewModel notificationsViewModel;
+     private NotificationsViewModel notificationsViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -81,11 +80,12 @@ public class NotificationsFragment extends Fragment {
                               String time = l.getTimeStamp().toString();
                               String Status = l.getStatus().toString();
                               String sender = l.getSender().toString();
+                              String type = l.getWorkOutType().toString();
 
                               if (rec.equals(thisuser)) {
                                  Log.e("sender", rec.toString());
                                  Log.e("sender", thisuser.toString());
-                                 WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,sender,sender, time, Status);
+                                 WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,sender,sender, time, Status,type);
                                   workoutlog.add(wi);
                               }
 
@@ -93,7 +93,7 @@ public class NotificationsFragment extends Fragment {
                                   Log.e("rec", rec.toString());
                                   Log.e("thisuser", thisuser.toString());
 
-                                  WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,rec,sender , time, Status);
+                                  WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,rec,sender , time, Status,type);
                                   workoutlog.add(wi);
                               }
                               mAdapter = new WorkoutsListAdapter(workoutlog);

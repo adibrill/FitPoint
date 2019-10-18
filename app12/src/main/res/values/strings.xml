@@ -31,6 +31,7 @@
     <string name="action_sign_in_short">Register</string>
     <string name="btn_link_to_login">Home Page</string>
     <string name="title_activity_fit_maps">Map</string>
+    <string name="SelectWorkout">Select Workout</string>
     <string name="phone_number">Phone Number</string>
     <string name="title_activity_member_profile">MemberProfileActivity</string>
     <string name="MorningandbeforeNoon">Morning and before Noon</string>

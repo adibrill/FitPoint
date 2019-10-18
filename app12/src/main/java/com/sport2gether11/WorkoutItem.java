@@ -9,6 +9,25 @@ public class WorkoutItem
     private String mWorkoutTime;
     private String mStatus;
     private String sender;
+    private String WType;
+
+    public WorkoutItem(int Resource,String Name1,String sendedby,String Workout2,String status,String Type)
+    {
+        mImageResource = Resource;
+        mName = Name1;
+        sender = sendedby;
+        mWorkoutTime=Workout2;
+        mStatus = status;
+        WType = Type;
+    }
+
+    public String getWType() {
+        return WType;
+    }
+
+    public void setWType(String WType) {
+        this.WType = WType;
+    }
 
     public String getmStatus() {
         return mStatus;
@@ -24,18 +43,6 @@ public class WorkoutItem
 
     public void setSender(String sender) {
         this.sender = sender;
-    }
-
-
-
-
-    public WorkoutItem(int Resource,String Name1,String sendedby,String Workout2,String status)
-    {
-        mImageResource = Resource;
-        mName = Name1;
-        sender = sendedby;
-        mWorkoutTime=Workout2;
-        mStatus = status;
     }
 
 

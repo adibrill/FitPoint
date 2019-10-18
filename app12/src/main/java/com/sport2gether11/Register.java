@@ -141,9 +141,9 @@ public class Register extends AppCompatActivity {
                                     1,
                                     0,
                                     "32.002985,34.943663",
-                                    "yoga",
-                                    "yoga",
-                                    "yoga"
+                                    "Yoga",
+                                    "Yoga",
+                                    "Yoga"
 
                             );
                             Toast.makeText(Register.this, "User created " + username, Toast.LENGTH_SHORT).show();

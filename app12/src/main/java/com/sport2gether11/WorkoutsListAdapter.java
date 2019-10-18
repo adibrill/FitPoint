@@ -23,6 +23,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
     {
         public ImageView mImageView;
         public TextView mName;
+        public TextView mType;
         public TextView mWorkoutTime;
         public TextView mstatustext;
         public Button okbutton;
@@ -39,6 +40,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             mstatustext = itemView.findViewById(R.id.workoutStatus);
             okbutton = itemView.findViewById(R.id.OKbutton);
             cancelbutton=itemView.findViewById(R.id.CancelButton);
+            mType = itemView.findViewById(R.id.workouttypedata);
 
 
         }
@@ -67,6 +69,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         holder.mName.setText(currentWork.getmName());
         holder.mWorkoutTime.setText(currentWork.getmWorkoutTime());
         holder.mstatustext.setText(currentWork.getmStatus());
+        holder.mType.setText(currentWork.getWType());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String myname = mAuth.getCurrentUser().getDisplayName();
 

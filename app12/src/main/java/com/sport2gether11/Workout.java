@@ -5,13 +5,25 @@ public class Workout {
     private String sender;
     private String receiver;
     private String status;
+    private String WorkOutType;
     private String timeStamp;
 
-    public Workout(String receiver, String sender, String status, String timeStamp) {
+    public String getWorkOutType() {
+        return WorkOutType;
+    }
+
+    public void setWorkOutType(String workOutType) {
+        WorkOutType = workOutType;
+    }
+
+
+
+    public Workout(String receiver, String sender, String status, String timeStamp,String type) {
         this.sender = sender;
         this.receiver = receiver;
         this.status = status;
         this.timeStamp = timeStamp;
+        this.WorkOutType = type;
     }
 
     public Workout() {
@@ -56,6 +68,7 @@ public class Workout {
                 ", receiver='" + receiver + '\'' +
                 ", status='" + status + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
+                ", type='" + WorkOutType + '\'' +
                 '}';
     }
 }

@@ -54,8 +54,8 @@
 
         <TextView
             android:id="@+id/WorkoutTime"
-            android:layout_width="117dp"
-            android:layout_height="45dp"
+            android:layout_width="119dp"
+            android:layout_height="18dp"
             android:layout_marginStart="124dp"
             android:layout_marginLeft="104dp"
             android:layout_marginTop="64dp"
@@ -117,6 +117,22 @@
             android:textColor="#F7FDFDFD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/workouttypedata"
+            android:layout_width="115dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginLeft="104dp"
+            android:layout_marginTop="86dp"
+            android:layout_marginEnd="184dp"
+            android:layout_marginRight="184dp"
+            android:layout_marginBottom="13dp"
+            android:text="type"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

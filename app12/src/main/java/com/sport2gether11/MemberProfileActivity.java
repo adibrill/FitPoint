@@ -1,5 +1,6 @@
 package com.sport2gether11;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,17 +18,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import android.widget.ArrayAdapter;
 import org.w3c.dom.Text;
 
 import java.nio.charset.Charset;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 public class MemberProfileActivity extends AppCompatActivity {
@@ -40,6 +46,11 @@ public class MemberProfileActivity extends AppCompatActivity {
     private TimePicker timePicker;
     private String dateselected = Calendar.getInstance().getTime().toString();
     private String timeselected = "";
+    private Spinner worktype;
+    List<String> spinnerArray = new ArrayList<String>();
+    private String mysport1 = "a";
+    private String mysport2 = "b";
+    private String mysport3 = "c";
 
 
     @Override
@@ -49,16 +60,28 @@ public class MemberProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         partner_username =getIntent().getStringExtra("PartnerUserName");
+        PartnerNameTextView = (TextView)findViewById(R.id.PartnerName);
+        PartnerNameTextView.setText(partner_username);
         mAuth = FirebaseAuth.getInstance();
         TextView bestHours = (TextView)findViewById(R.id.BestHoursData);
         TextView level = (TextView)findViewById(R.id.UserLevelData);
         TextView Preferences = (TextView)findViewById(R.id.PreferencesData);
+        worktype = (Spinner)findViewById(R.id.workouttypespinner);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //String myssports[]=Preferences.getText().toString().split(",");
+        mysport1 = getIntent().getStringExtra("sport1");
+        mysport2 = getIntent().getStringExtra("sport2");
+        mysport3 = getIntent().getStringExtra("sport3");
+
+        Log.e("sport123",mysport1 +","+mysport2 +","+mysport3);
 
 
-        mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        if (dataSnapshot.exists()) {
@@ -67,6 +90,8 @@ public class MemberProfileActivity extends AppCompatActivity {
 
                                if(partner.getUserName().toString().equals(partner_username))
                                {
+
+                                   String sports[] = getResources().getStringArray(R.array.Sports);
                                     switch(partner.getTimePeriod())
                                     {
                                         case 1:
@@ -92,6 +117,43 @@ public class MemberProfileActivity extends AppCompatActivity {
                                             break;
                                     }
                                    Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString()+","+partner.getSport3().toString());
+
+                                    if(mysport1 != null && mysport2 != null && mysport3 != null)
+                                    {
+
+                                        if(partner.getSport1().equals(mysport1) || partner.getSport1().equals(mysport2) || partner.getSport1().equals(mysport3))
+                                        {
+                                            if(!spinnerArray.contains(partner.getSport1())) {
+                                                spinnerArray.add(partner.getSport1());
+                                                }
+                                        }
+
+                                        if(partner.getSport2().equals(mysport1) || partner.getSport2().equals(mysport2) || partner.getSport2().equals(mysport3))
+                                        {
+                                            if(!spinnerArray.contains(partner.getSport2())) {
+                                                spinnerArray.add(partner.getSport2());
+                                            }
+
+                                        }
+
+                                        if(partner.getSport3().equals(mysport1) || partner.getSport3().equals(mysport2) || partner.getSport3().equals(mysport3))
+                                        {
+                                            if(!spinnerArray.contains(partner.getSport3())) {
+                                                spinnerArray.add(partner.getSport3());
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        spinnerArray.add(partner.getSport1());
+
+                                        if(!spinnerArray.contains(partner.getSport2())) {
+                                            spinnerArray.add(partner.getSport2());
+                                        }
+                                        if(!spinnerArray. contains(partner.getSport3())) {
+                                            spinnerArray.add(partner.getSport3());
+                                        }
+                                    }
                                }
                            }
                        }
@@ -100,6 +162,15 @@ public class MemberProfileActivity extends AppCompatActivity {
                   public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
            });
+
+        //Log.e("array1",spinnerArray.toString());
+
+
+         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinneritem , spinnerArray);
+             adapter.add("Choose here");
+        adapter.setDropDownViewResource(R.layout.spinner_deopdown_item);
+         worktype.setAdapter(adapter);
+          worktype.setSelection(0);
 
 
         calendarView = findViewById(R.id.calendarView);
@@ -120,13 +191,19 @@ public class MemberProfileActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Workout workout1 = new Workout(partner_username, mAuth.getCurrentUser().getDisplayName(), "pending",dateselected+" " + timeselected);
+        worktype = (Spinner)findViewById(R.id.workouttypespinner);
+        Workout workout1 = new Workout(partner_username, mAuth.getCurrentUser().getDisplayName(), "pending",dateselected+" " + timeselected,"Yoga");
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Spinner clickspinner = (Spinner)findViewById(R.id.workouttypespinner);
+                String workTypes = clickspinner.getSelectedItem().toString();
+                workout1.setWorkOutType(workTypes);
+                Log.i("workTypes",workTypes);
                 Snackbar.make(view, "Workout registered", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -144,14 +221,15 @@ public class MemberProfileActivity extends AppCompatActivity {
                 String generatedString = buffer.toString();
 
                 workout1.setTimeStamp(dateselected+" " + timeselected);
-                //Log.e("timeselected ",dateselected+" " + timeselected);
+                //workout1.setWorkOutType(worktype.getSelectedItem().toString());
+               // Log.e("type1111 ",worktype.getSelectedItem().toString());
+
                mDatabase.child("Workouts").child(generatedString).setValue(workout1);
 
             }
         });
 
-        PartnerNameTextView = (TextView)findViewById(R.id.PartnerName);
-        PartnerNameTextView.setText(partner_username);
+
 
     }
 

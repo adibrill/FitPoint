@@ -49,6 +49,9 @@ public class MapAndMenu extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FragmentManager fmanager;
     private DatabaseReference mDatabase;
+    private String sport1;
+    private String sport2;
+    private String sport3;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -217,9 +220,72 @@ public class MapAndMenu extends AppCompatActivity{
 
     public void onUserNameClicked(View v)
     {
+        /*
+        ////// add data
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                        User myuser = npsnapshot.getValue(User.class);
+
+                        if(myuser.getUserName().equals(mAuth.getCurrentUser().getDisplayName()))
+                        {
+                            //Log.e("EQUALS",myuser.getUserName() + ","+ mAuth.getCurrentUser().getDisplayName());
+                            String s1 = myuser.getSport1();
+                            String s2 = myuser.getSport2();
+                            String s3 = myuser.getSport3();
+                            //Log.e("mysp",dataSnapshot.toString());
+
+                            Log.e("Preferences",s1+","+s2+","+s3);
+
+
+                            Intent i = new Intent(getApplicationContext(),MemberProfileActivity.class);
+                            final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
+                            i.putExtra(partnername.getText().toString(),"PartnerUserName");
+                            i.putExtra("sport1",s1);
+                            i.putExtra("sport2",s2);
+                            i.putExtra("sport3",s3);
+                            startActivity(i);
+
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        */
+
         Intent i = new Intent(this,MemberProfileActivity.class);
         final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
-        i.putExtra(partnername.getText().toString(),"PartnerUserName");
+        i.putExtra("PartnerUserName",partnername.getText().toString());
+
+            Log.i("partnername",partnername.getText().toString());
+
+        if(getIntent() != null)
+        {
+            sport1=getIntent().getStringExtra("sport1");
+            sport2=getIntent().getStringExtra("sport2");
+            sport3=getIntent().getStringExtra("sport3");
+
+            i.putExtra("sport1",sport1);
+            i.putExtra("sport2",sport2);
+            i.putExtra("sport3",sport3);
+        }
+        else
+        {
+            i.putExtra("yoga","sport1");
+            i.putExtra("yoga","sport2");
+            i.putExtra("yoga","sport3");
+        }
+
         startActivity(i);
     }
 
