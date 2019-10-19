@@ -49,7 +49,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         public Button okbutton;
         public Button cancelbutton;
         public Button callbutton;
-
+        public Button whatsappbutton;
 
 
 
@@ -64,6 +64,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             cancelbutton=itemView.findViewById(R.id.CancelButton);
             mType = itemView.findViewById(R.id.workouttypedata);
             callbutton = itemView.findViewById(R.id.callbutton);
+            whatsappbutton = itemView.findViewById(R.id.whatsappbutton);
 
 
         }
@@ -121,8 +122,10 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
 
         if(currentWork.getmStatus().equals("approved")) {
+            holder.whatsappbutton.setVisibility(View.VISIBLE);
             holder.callbutton.setVisibility(View.VISIBLE);
-            holder.callbutton.setOnClickListener(new View.OnClickListener() {
+
+            holder.whatsappbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -133,18 +136,25 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                                 for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                                     User find_user = npsnapshot.getValue(User.class);
                                     if (find_user.getUserName().equals(holder.mName.getText())) {
-                                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                        callIntent.setData(Uri.parse("tel:"+find_user.getPhoneNumber()));//change the number
 
-                                        try
-                                        {
-                                          mcon.startActivity(callIntent);
+
+
+                                        try {
+                                            String text = "hi, lets decide where to meet :)";// Replace with your message.
+
+                                            String toNumber = "+972"+find_user.getPhoneNumber(); // Replace with mobile phone number without +Sign or leading zeros, but with country code
+                                            //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
+
+
+                                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                                            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+                                            mcon.startActivity(intent);
                                         }
-                                        catch (SecurityException e)
-                                        {
-                                            Log.e("cant call",e.toString());
+                                        catch (Exception e){
+                                            e.printStackTrace();
                                         }
-                                        }
+
+                                    }
 
                                 }
                             }
@@ -159,6 +169,43 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
                 }
 
+            });
+
+            holder.callbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                                    User find_user = npsnapshot.getValue(User.class);
+                                    if (find_user.getUserName().equals(holder.mName.getText())) {
+
+                                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                        callIntent.setData(Uri.parse("tel:"+find_user.getPhoneNumber()));//change the number
+
+                                        try
+                                        {
+                                          mcon.startActivity(callIntent);
+                                        }
+                                        catch (SecurityException e)
+                                        {
+                                            Log.e("cant call",e.toString());
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             });
         }
 

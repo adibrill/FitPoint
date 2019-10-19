@@ -134,8 +134,8 @@
 
         <Button
             android:id="@+id/callbutton"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
             android:layout_marginStart="286dp"
             android:layout_marginLeft="286dp"
             android:layout_marginTop="19dp"
@@ -143,6 +143,25 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="5dp"
             android:background="@android:drawable/sym_action_call"
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/whatsappbutton"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="226dp"
+            android:layout_marginLeft="226dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="46dp"
+            android:layout_marginRight="46dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/whatsappicon"
 
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

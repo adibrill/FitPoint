@@ -113,12 +113,6 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        SharedPreferences settings = getApplicationContext().getSharedPreferences("username", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("username",username);
-
-                        editor.commit();
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
