@@ -134,7 +134,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    //Log.e("first11","first11");
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         User myuser = npsnapshot.getValue(User.class);
 

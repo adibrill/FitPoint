@@ -1,5 +1,7 @@
 package com.sport2gether11;
-
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +48,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         public TextView mstatustext;
         public Button okbutton;
         public Button cancelbutton;
+        public Button callbutton;
 
 
 
@@ -58,6 +63,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             okbutton = itemView.findViewById(R.id.OKbutton);
             cancelbutton=itemView.findViewById(R.id.CancelButton);
             mType = itemView.findViewById(R.id.workouttypedata);
+            callbutton = itemView.findViewById(R.id.callbutton);
 
 
         }
@@ -82,6 +88,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
     @Override
     public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
     //pass data to list
+
         WorkoutItem currentWork = mWorkoutList.get(position);
         holder.mImageView.setImageResource(currentWork.getmImageResource());
         holder.mName.setText(currentWork.getmName());
@@ -111,6 +118,49 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             holder.cancelbutton.setVisibility(View.INVISIBLE);
         }
 
+
+
+        if(currentWork.getmStatus().equals("approved")) {
+            holder.callbutton.setVisibility(View.VISIBLE);
+            holder.callbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                                    User find_user = npsnapshot.getValue(User.class);
+                                    if (find_user.getUserName().equals(holder.mName.getText())) {
+                                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                        callIntent.setData(Uri.parse("tel:"+find_user.getPhoneNumber()));//change the number
+
+                                        try
+                                        {
+                                          mcon.startActivity(callIntent);
+                                        }
+                                        catch (SecurityException e)
+                                        {
+                                            Log.e("cant call",e.toString());
+                                        }
+                                        }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+
+            });
+        }
 
         holder.okbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,59 +259,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         });
 
 
-        holder.mstatustext.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-
-              //  Log.e("textchanged12","textchanged");
-                //Toast.makeText(, "Cancelled :(", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        /*
-        holder.mName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(mcon,MemberProfileActivity.class);
-                //final TextView partnername =(TextView) .findViewById(R.id.PartnerName);
-                i.putExtra("PartnerUserName",holder.mName.getText().toString());
-
-                Log.i("partnername1212",holder.mName.getText().toString());
-
-                if(mcon.getIntent() != null)
-                {
-                    String sport1= mcon.getIntent().getStringExtra("sport1");
-                    String sport2=mcon.getIntent().getStringExtra("sport2");
-                    String sport3=mcon.getIntent().getStringExtra("sport3");
-
-                    i.putExtra("sport1",sport1);
-                    i.putExtra("sport2",sport2);
-                    i.putExtra("sport3",sport3);
-                }
-                else
-                {
-                    i.putExtra("yoga","sport1");
-                    i.putExtra("yoga","sport2");
-                    i.putExtra("yoga","sport3");
-                }
-
-                mcon.startActivity(i);
-            }
-        });
-
-*/
 
     }
 

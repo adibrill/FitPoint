@@ -119,7 +119,7 @@ public class MapAndMenu extends AppCompatActivity{
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        Log.e("viewvvvvv",v.toString());
+        //Log.e("viewvvvvv",v.toString());
 
         final TextView timestampview =(TextView)v.getRootView().findViewById(R.id.WorkoutTime);
         final TextView partnerNameview = (TextView)v.getRootView().findViewById(R.id.PartnerName);
