@@ -105,6 +105,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         SMF = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.Fittersmap);
         mapview = (MapView)mview.findViewById(R.id.Fittersmap);
         mapview.onCreate(savedInstanceState);
+
+
         mapview.getMapAsync(this);
         return mview;
     }
