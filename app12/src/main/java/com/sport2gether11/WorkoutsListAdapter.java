@@ -245,6 +245,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                         }
                     }
 
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
