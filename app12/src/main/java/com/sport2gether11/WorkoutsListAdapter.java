@@ -1,8 +1,11 @@
 package com.sport2gether11;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -201,6 +205,28 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
 
                 Toast.makeText(view.getContext(), "Cancelled :(", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        holder.mstatustext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+              //  Log.e("textchanged12","textchanged");
+                //Toast.makeText(, "Cancelled :(", Toast.LENGTH_SHORT).show();
+
             }
         });
 
