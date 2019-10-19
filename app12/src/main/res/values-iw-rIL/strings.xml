@@ -13,8 +13,11 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="Choosehere">בחר כאן</string>
+    <string name="chooseaworkouttype">בחר סוג אימון</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
+    <string name="Workoutregistered">האימון נשלח בהצלחה</string>
+    <string name="workoutalreadyexistswiththispartner">כבר קיים אימון עם משתמש זה</string>
     <string name="menu_send">Send</string>
     <string name="title_activity_map">מפה</string>
     <string name="title_home">מפה</string>

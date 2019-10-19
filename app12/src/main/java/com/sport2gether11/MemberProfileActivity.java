@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import org.w3c.dom.Text;
 
 import java.nio.charset.Charset;
@@ -44,6 +46,7 @@ public class MemberProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CalendarView calendarView;
     private TimePicker timePicker;
+    public boolean workoutexists;
     private String dateselected = Calendar.getInstance().getTime().toString();
     private String timeselected = "";
     private Spinner worktype;
@@ -51,7 +54,6 @@ public class MemberProfileActivity extends AppCompatActivity {
     private String mysport1 = "a";
     private String mysport2 = "b";
     private String mysport3 = "c";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,9 +163,9 @@ public class MemberProfileActivity extends AppCompatActivity {
                   @Override
                   public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
-           });
 
-        //Log.e("array1",spinnerArray.toString());
+
+           });
 
 
          ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinneritem , spinnerArray);
@@ -194,42 +196,79 @@ public class MemberProfileActivity extends AppCompatActivity {
         worktype = (Spinner)findViewById(R.id.workouttypespinner);
         Workout workout1 = new Workout(partner_username, mAuth.getCurrentUser().getDisplayName(), "pending",dateselected+" " + timeselected,"Yoga");
 
+        mDatabase = FirebaseDatabase.getInstance().getReference("Workouts");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Spinner clickspinner = (Spinner)findViewById(R.id.workouttypespinner);
-                String workTypes = clickspinner.getSelectedItem().toString();
-                workout1.setWorkOutType(workTypes);
-                Log.i("workTypes",workTypes);
-                Snackbar.make(view, "Workout registered", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                boolean flag = true;
 
 
-                int leftLimit = 97; // letter 'a'
-                int rightLimit = 122; // letter 'z'
-                int targetStringLength = 30;
-                Random random = new Random();
-                StringBuilder buffer = new StringBuilder(targetStringLength);
-                for (int i = 0; i < targetStringLength; i++) {
-                    int randomLimitedInt = leftLimit + (int)
-                            (random.nextFloat() * (rightLimit - leftLimit + 1));
-                    buffer.append((char) randomLimitedInt);
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                            Workout work1 = npsnapshot.getValue(Workout.class);
+
+                            if (work1.getSender().equals(mAuth.getCurrentUser().getDisplayName())&& work1.getReceiver().equals(partner_username) && work1.getStatus().equals("pending")) {
+                                flag = false;
+
+                            }
+                        }
+
+
+                        if(flag) {
+                            FloatingActionButton fab = findViewById(R.id.fab);
+                            fab.setOnClickListener(view -> {
+
+                                Spinner clickspinner = (Spinner) findViewById(R.id.workouttypespinner);
+                                String workTypes = clickspinner.getSelectedItem().toString();
+                                workout1.setWorkOutType(workTypes);
+                                //Log.i("workTypes",workTypes);
+
+
+
+                                if (workTypes.equals(getResources().getString(R.string.Choosehere))) {
+                                    Snackbar.make(view, getResources().getString(R.string.chooseaworkouttype), Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                } else {
+
+
+                                    int leftLimit = 97; // letter 'a'
+                                    int rightLimit = 122; // letter 'z'
+                                    int targetStringLength = 30;
+                                    Random random = new Random();
+                                    StringBuilder buffer = new StringBuilder(targetStringLength);
+                                    for (int i = 0; i < targetStringLength; i++) {
+                                        int randomLimitedInt = leftLimit + (int)
+                                                (random.nextFloat() * (rightLimit - leftLimit + 1));
+                                        buffer.append((char) randomLimitedInt);
+                                    }
+                                    String generatedString = buffer.toString();
+
+                                    workout1.setTimeStamp(dateselected + " " + timeselected);
+
+                                    mDatabase.child("Workouts").child(generatedString).setValue(workout1);
+
+                                    Snackbar.make(view, getResources().getString(R.string.Workoutregistered), Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+                            });
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.workoutalreadyexistswiththispartner), Toast.LENGTH_SHORT).show();
+                           // Snackbar.make(, getResources().getString(R.string.Workoutregistered), Snackbar.LENGTH_LONG)
+                            //        .setAction("Action", null).show();
+
+                        }
+                    }
                 }
-                String generatedString = buffer.toString();
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                workout1.setTimeStamp(dateselected+" " + timeselected);
-                //workout1.setWorkOutType(worktype.getSelectedItem().toString());
-               // Log.e("type1111 ",worktype.getSelectedItem().toString());
-
-               mDatabase.child("Workouts").child(generatedString).setValue(workout1);
-
-            }
-        });
-
-
+                }
+            });
 
     }
 

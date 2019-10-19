@@ -126,17 +126,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
+
+
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
+                    //Log.e("first11","first11");
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         User myuser = npsnapshot.getValue(User.class);
 
+                        mAuth = FirebaseAuth.getInstance();
                         if(myuser.getUserName().equals(mAuth.getCurrentUser().getDisplayName()))
                         {
-                            //Log.e("EQUALS",myuser.getUserName() + ","+ mAuth.getCurrentUser().getDisplayName());
+                            Log.e("EQUALS",myuser.getUserName() + ","+ mAuth.getCurrentUser().getDisplayName());
                             String s1 = myuser.getSport1();
                             String s2 = myuser.getSport2();
                             String s3 = myuser.getSport3();

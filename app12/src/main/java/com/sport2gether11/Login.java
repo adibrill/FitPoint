@@ -81,8 +81,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess: " + loginResult);
+                /////
+                //check here!!!!
+                /////
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Intent intent = new Intent(Login.this, MapAndMenu.class);
+
+                Intent intent = new Intent(Login.this, ProfileSettings.class);
                 startActivity(intent);
 
             }
@@ -213,9 +217,6 @@ public class Login extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             //Toast.makeText(Register.this, "Registration Succeded!", Toast.LENGTH_SHORT).show();
 
-                                            Intent i = new Intent(Login.this, ProfileSettings.class);
-
-                                            startActivity(i);
                                         }
                                         else{
                                             Toast.makeText(Login.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
