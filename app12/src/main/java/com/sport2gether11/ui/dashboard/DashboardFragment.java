@@ -32,8 +32,8 @@ import com.sport2gether11.WorkoutForm;
 
 public class DashboardFragment extends Fragment {
 
-    private String EntriesCountStr = "0";
-    private int EntriesCountInt = 0;
+    public String EntriesCountStr = "0";
+    public int EntriesCountInt = 0;
 
     private DashboardViewModel dashboardViewModel;
 
@@ -42,11 +42,6 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-       // LineGraphView graphView = new LineGraphView(
-        //        this // context
-        //        , "GraphViewDemo" // heading
-       // );
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +68,7 @@ public class DashboardFragment extends Fragment {
         SharedPreferences pref = getContext().getSharedPreferences("Entries", Context.MODE_MULTI_PROCESS); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
 
-        pref.getString("EntriesCount", EntriesCountStr);
+        EntriesCountStr = pref.getString("EntriesCount", EntriesCountStr);
 
 
         EntriesCountInt = Integer.parseInt(EntriesCountStr);
@@ -93,15 +88,19 @@ public class DashboardFragment extends Fragment {
         int n=size;     //to find out the no. of data-points
         DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
         for(int i=0;i<n;i++){
-            SharedPreferences pref = getContext().getSharedPreferences("WorkEntry"+i, 0);
-            pref.getString("WorkEntry"+i,datapointString);
 
-            Log.e("datapointString",datapointString);
+            SharedPreferences pref = this.getActivity().getSharedPreferences("Entries", Context.MODE_WORLD_READABLE);
+            datapointString = pref.getString("WorkEntry"+Integer.toString(i),datapointString);
 
             datapoint = datapointString.split(",");
-            DataPoint v = new DataPoint(Double.parseDouble(datapoint[0]),Double.parseDouble(datapoint[i]));
+            DataPoint v = new DataPoint(Double.parseDouble(datapoint[0]),Double.parseDouble(datapoint[1]));
             values[i] = v;
         }
         return values;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

@@ -14,8 +14,8 @@ import android.widget.Toast;
 public class WorkoutForm extends AppCompatActivity {
 
 
-    private String EntriesCountStr;
-    private int EntriesCountInt;
+    public String EntriesCountStr = "0";
+    public int EntriesCountInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,36 +26,37 @@ public class WorkoutForm extends AppCompatActivity {
     public void OnClickWorkoutFormAdded(View view)
     {
         Log.e("gothere!!!","gothere!!!");
-        SharedPreferences pref = this.getSharedPreferences("Entries", MODE_MULTI_PROCESS); // 0 - for private mode
+        SharedPreferences pref = this.getSharedPreferences("Entries", MODE_WORLD_WRITEABLE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
 
 
-        pref.getString("EntriesCount", EntriesCountStr);
+        EntriesCountStr = pref.getString("EntriesCount", EntriesCountStr);
         Log.e("EntriesCountStr-inform",EntriesCountStr);
         EntriesCountInt = Integer.parseInt(EntriesCountStr);
         //
         // todo calculate
         //
-        editor.putString("WorkEntry"+1, EntriesCountInt+","+EntriesCountInt);
-        Log.e("WorkEntry-inform",EntriesCountInt+1+","+EntriesCountInt+1);
+        editor.putString("WorkEntry"+Integer.toString(EntriesCountInt), Integer.toString(EntriesCountInt)+","+Integer.toString(EntriesCountInt));
+        Log.e("WorkEntry-inform",Integer.toString(EntriesCountInt+1)+","+Integer.toString(EntriesCountInt+1));
         ////
 
         //
 
         EntriesCountInt+=1;
         editor.putString("EntriesCount", Integer.toString(EntriesCountInt));
-        Log.e("EntriesCount-after",EntriesCountInt+"");
+        editor.apply();
+        Log.e("EntriesCount-after",Integer.toString(EntriesCountInt));
 
 
-       // finish();
+        finish();
 
     }
 
     public void OnClickDeleteLastWorkout(View view) {
-        SharedPreferences pref = this.getSharedPreferences("Entries", 0); // 0 - for private mode
+        SharedPreferences pref = this.getSharedPreferences("Entries", MODE_WORLD_WRITEABLE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
 
-        pref.getString("EntriesCount", EntriesCountStr);
+        EntriesCountStr = pref.getString("EntriesCount", EntriesCountStr);
         EntriesCountInt = Integer.parseInt(EntriesCountStr);
 
         if(EntriesCountInt > 0)
@@ -66,8 +67,10 @@ public class WorkoutForm extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
-                            editor.remove("WorkEntry"+(EntriesCountInt-1));
+                            editor.remove("WorkEntry"+Integer.toString(EntriesCountInt-1));
                             editor.putString("EntriesCount",Integer.toString((EntriesCountInt-1)));
+                            editor.apply();
+                            finish();
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -88,6 +91,5 @@ public class WorkoutForm extends AppCompatActivity {
         }
 
 
-        finish();
     }
 }

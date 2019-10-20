@@ -47,7 +47,7 @@ public class MapAndMenu extends AppCompatActivity{
     GoogleMap googleMap;
     View mView;
     private FirebaseAuth mAuth;
-    private FragmentManager fmanager;
+    public FragmentManager fmanager;
     private DatabaseReference mDatabase;
     private String sport1;
     private String sport2;
@@ -69,6 +69,10 @@ public class MapAndMenu extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
+
+
 
     }
 

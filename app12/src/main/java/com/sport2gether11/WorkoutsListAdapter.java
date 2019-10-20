@@ -169,7 +169,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                                     if (find_user.getUserName().equals(holder.mName.getText())) {
 
                                         try {
-                                            String text = "hi, lets decide where to meet :)";// Replace with your message.
+                                            String text = mcon.getResources().getString(R.string.greeting);// Replace with your message.
 
                                             String toNumber = "+972"+find_user.getPhoneNumber(); // Replace with mobile phone number without +Sign or leading zeros, but with country code
                                             //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
@@ -194,8 +194,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
                         }
                     });
-
-
                 }
 
             });
@@ -224,7 +222,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                                             Log.e("cant call",e.toString());
                                         }
                                     }
-
                                 }
                             }
                         }
@@ -250,9 +247,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                 final String timestamp =  holder.mWorkoutTime.getText().toString();
                 final String partnername = holder.mName.getText().toString();
 
-                Log.e("partnername111",partnername);
-                Log.e("timestamp111",timestamp);
-                Log.e("type111",type);
 
                 mDatabase.child("Workouts").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -273,7 +267,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                             }
                         }
                     }
-
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
