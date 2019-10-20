@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/userimageView"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginStart="235dp"
@@ -205,11 +205,11 @@
         android:id="@+id/button3"
         android:layout_width="114dp"
         android:layout_height="61dp"
-        android:layout_marginStart="254dp"
-        android:layout_marginLeft="254dp"
+        android:layout_marginStart="274dp"
+        android:layout_marginLeft="274dp"
         android:layout_marginTop="506dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginRight="43dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
         android:layout_marginBottom="36dp"
         android:onClick="onClickContinue"
         android:text="@string/Continue"
@@ -218,19 +218,18 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/UploadPictureBtn"
-        android:layout_width="83dp"
-        android:layout_height="95dp"
+        android:layout_width="113dp"
+        android:layout_height="75dp"
         android:text="@string/upload_profile_picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.972" />
+        app:layout_constraintVertical_bias="0.943" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,11 @@
 package com.sport2gether11;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -44,9 +50,9 @@ public class MemberProfileActivity extends AppCompatActivity {
     private String partner_username;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private ImageView partnerimage;
     private CalendarView calendarView;
     private TimePicker timePicker;
-    public boolean workoutexists;
     private String dateselected = Calendar.getInstance().getTime().toString();
     private String timeselected = "";
     private Spinner worktype;
@@ -61,10 +67,38 @@ public class MemberProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
         partner_username =getIntent().getStringExtra("PartnerUserName");
+        partnerimage = (ImageView)findViewById(R.id.PartnerImage);
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
+
+        try {
+
+
+
+            //String imageurl = "https://firebasestorage.googleapis.com/v0/b/fitpoint-e4673.appspot.com/o/uploads%2F"+mAuth.getCurrentUser().getDisplayName()+".jpg?alt=media&token=a215d873-a6cf-4796-ac26-3598e11167c0";
+
+            StorageReference fileRef = storageReference.child(partner_username + ".jpg");
+
+            fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            {
+                @Override
+                public void onSuccess(Uri downloadUrl)
+                {
+                    Glide.with(getApplicationContext()).load(downloadUrl).into(partnerimage);
+                }
+            });
+
+            Log.i("url",fileRef.getDownloadUrl().toString());
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Couldn't load image","Couldn't load image");
+        }
+
+
+
         PartnerNameTextView = (TextView)findViewById(R.id.PartnerName);
         PartnerNameTextView.setText(partner_username);
         mAuth = FirebaseAuth.getInstance();

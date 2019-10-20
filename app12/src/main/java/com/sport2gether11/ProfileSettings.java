@@ -33,7 +33,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import com.bumptech.glide.Glide;
 import android.content.Context;
 import android.content.ContentResolver;
 
@@ -98,13 +98,37 @@ public class ProfileSettings extends AppCompatActivity{
 
 
         //-----------------------
-        image_profile = findViewById(R.id.imageView);
+        image_profile = findViewById(R.id.userimageView);
         uploadPictureButton = (Button) findViewById(R.id.UploadPictureBtn);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        try {
 
+
+
+            //String imageurl = "https://firebasestorage.googleapis.com/v0/b/fitpoint-e4673.appspot.com/o/uploads%2F"+mAuth.getCurrentUser().getDisplayName()+".jpg?alt=media&token=a215d873-a6cf-4796-ac26-3598e11167c0";
+
+            StorageReference fileRef = storageReference.child(mAuth.getCurrentUser().getDisplayName() + ".jpg");
+
+            fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            {
+                @Override
+                public void onSuccess(Uri downloadUrl)
+                {
+                    Glide.with(getApplicationContext()).load(downloadUrl).into(image_profile);
+                }
+            });
+
+            Log.i("url",fileRef.getDownloadUrl().toString());
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Couldn't load image","Couldn't load image");
+        }
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         spinner1 = (Spinner) findViewById(R.id.spinnersport1);
         spinner2 = (Spinner) findViewById(R.id.spinnersport2);
@@ -129,37 +153,6 @@ public class ProfileSettings extends AppCompatActivity{
             }
         });
         //-----------------
-        mDatabaseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if(dataSnapshot.exists()) {
-
-                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                        //todo
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         mDatabase.addChildEventListener(new ChildEventListener() {
               @Override
@@ -266,7 +259,7 @@ public class ProfileSettings extends AppCompatActivity{
     private void uploadFile() {
         if (imageUri != null){
 
-            StorageReference fileRef = storageReference.child(System.currentTimeMillis() +
+            StorageReference fileRef = storageReference.child(mAuth.getCurrentUser().getDisplayName()+
                     "." + getFileExtension(imageUri));
 
             fileRef.putFile(imageUri)
@@ -283,9 +276,9 @@ public class ProfileSettings extends AppCompatActivity{
                             }, 5000);
                             Toast.makeText(ProfileSettings.this,"Upload successful", Toast.LENGTH_SHORT).show();
 
-                            Upload upload = new Upload(mAuth.getCurrentUser().getUid(),
-                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                            Upload upload = new Upload(mAuth.getCurrentUser().getDisplayName(),fileRef.getDownloadUrl().toString());
 
+                            //Glide.with(getApplicationContext()).load(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString()).into(image_profile);
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
 
@@ -304,7 +297,7 @@ public class ProfileSettings extends AppCompatActivity{
             });
 
         }else {
-            Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -324,6 +317,8 @@ public class ProfileSettings extends AppCompatActivity{
             imageUri = data.getData();
             image_profile.setImageURI(imageUri);
             Toast.makeText(this,"Image picked!", Toast.LENGTH_SHORT).show();
+
+
         }
     }
 

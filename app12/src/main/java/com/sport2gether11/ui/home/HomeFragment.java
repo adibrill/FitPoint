@@ -270,10 +270,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         }
         else {
 
-            locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationlistener);
-            currentLocation = locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLatitude()+","+ locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLongitude();
-            mylat = Double.parseDouble(currentLocation.substring(0,currentLocation.indexOf(',')));
-            mylon = Double.parseDouble(currentLocation.substring(currentLocation.indexOf(',')+1));
+
+            try {
+                locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationlistener);
+                currentLocation = locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLatitude()+","+ locationmanager.getLastKnownLocation(locationmanager.GPS_PROVIDER).getLongitude();
+                mylat = Double.parseDouble(currentLocation.substring(0,currentLocation.indexOf(',')));
+                mylon = Double.parseDouble(currentLocation.substring(currentLocation.indexOf(',')+1));
+
+            }
+            catch (Exception e)
+            {
+                Toast.makeText( getActivity(), "Couldn't resolve location, get to a place with reception" , Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         //Toast.makeText( getActivity(), "got here!" , Toast.LENGTH_SHORT).show();

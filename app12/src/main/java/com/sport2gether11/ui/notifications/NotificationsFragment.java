@@ -97,7 +97,7 @@ public class NotificationsFragment extends Fragment {
                               if (rec.equals(thisuser)) {
                                  Log.e("sender", rec.toString());
                                  Log.e("sender", thisuser.toString());
-                                 WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,sender,sender, time, Status,type);
+                                 WorkoutItem wi = new WorkoutItem(R.drawable.th,sender,sender, time, Status,type);
                                   workoutlog.add(wi);
                               }
 
@@ -105,7 +105,7 @@ public class NotificationsFragment extends Fragment {
                                   Log.e("rec", rec.toString());
                                   Log.e("thisuser", thisuser.toString());
 
-                                  WorkoutItem wi = new WorkoutItem(R.drawable.ic_menu_camera,rec,sender , time, Status,type);
+                                  WorkoutItem wi = new WorkoutItem(R.drawable.th,rec,sender , time, Status,type);
                                   workoutlog.add(wi);
                               }
                               mAdapter = new WorkoutsListAdapter(workoutlog,getActivity());

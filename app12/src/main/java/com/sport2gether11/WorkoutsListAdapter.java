@@ -23,12 +23,16 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -98,6 +102,35 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
         holder.mType.setText(currentWork.getWType());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String myname = mAuth.getCurrentUser().getDisplayName();
+
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
+
+        try {
+
+
+
+            //String imageurl = "https://firebasestorage.googleapis.com/v0/b/fitpoint-e4673.appspot.com/o/uploads%2F"+mAuth.getCurrentUser().getDisplayName()+".jpg?alt=media&token=a215d873-a6cf-4796-ac26-3598e11167c0";
+
+            StorageReference fileRef = storageReference.child(holder.mName.getText() + ".jpg");
+
+            fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            {
+                @Override
+                public void onSuccess(Uri downloadUrl)
+                {
+                    Glide.with(mcon).load(downloadUrl).into(holder.mImageView);
+                }
+            });
+
+            Log.i("url",fileRef.getDownloadUrl().toString());
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Couldn't load image","Couldn't load image");
+        }
+
 
         //////////
 
