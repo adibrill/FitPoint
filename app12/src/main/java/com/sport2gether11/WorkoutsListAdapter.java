@@ -276,7 +276,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
                 // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
 
-                Toast.makeText(v.getContext(), "Approved :)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), mcon.getResources().getString(R.string.Approved), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -324,7 +324,7 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
 
 
 
-                Toast.makeText(view.getContext(), "Cancelled :(", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), mcon.getResources().getString(R.string.Cancelled), Toast.LENGTH_SHORT).show();
             }
         });
 

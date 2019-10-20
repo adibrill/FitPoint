@@ -25,7 +25,7 @@ public class WorkoutForm extends AppCompatActivity {
 
     public void OnClickWorkoutFormAdded(View view)
     {
-        Log.e("gothere!!!","gothere!!!");
+
         SharedPreferences pref = this.getSharedPreferences("Entries", MODE_WORLD_WRITEABLE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
 
@@ -87,7 +87,7 @@ public class WorkoutForm extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "No Entries" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.NoEntries) , Toast.LENGTH_SHORT).show();
         }
 
 

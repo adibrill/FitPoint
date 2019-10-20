@@ -115,7 +115,7 @@ public class NotificationsFragment extends Fragment {
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Send your first Workout!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sendfirstworkout), Toast.LENGTH_SHORT).show();
                             }
                         }
                         @Override
@@ -187,7 +187,7 @@ public class NotificationsFragment extends Fragment {
                       }
                       else
                       {
-                          Toast.makeText(getActivity(), "Send your first Workout!", Toast.LENGTH_SHORT).show();
+                          Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.sendfirstworkout), Toast.LENGTH_SHORT).show();
                       }
                   }
                    @Override

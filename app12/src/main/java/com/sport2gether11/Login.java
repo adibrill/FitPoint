@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
                 }
                 else{
                     // user not logged in
-                    Toast.makeText(Login.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, getResources().getString(R.string.Usernotloggedin), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -102,45 +102,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        // Listen to button clicks from login button
-/*           btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = userName.getText().toString().trim();
-                String password = userPassword.getText().toString().trim();
-
-                if (name.isEmpty()){
-                    userName.setError("Please enter user name");
-                    userName.requestFocus();
-                }
-                else if (password.isEmpty()){
-                    userPassword.setError("Please enter password");
-                    userPassword.requestFocus();
-                }
-                else if (name.isEmpty() && password.isEmpty()){
-                    Toast.makeText(Login.this, "Fields are empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (!(name.isEmpty() && password.isEmpty())){
-                    mAuth.createUserWithEmailAndPassword(name, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()){
-                                Toast.makeText(Login.this, "Login error, please login again", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-
-                                Intent intent = new Intent(Login.this, MapAndMenu.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(Login.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-*/
     }
 
     @Override
@@ -154,7 +115,7 @@ public class Login extends AppCompatActivity {
 
         if(currenctUser != null){
             Log.d(TAG, "Currently Signed in: " + currenctUser.getEmail());
-            Toast.makeText(Login.this, "Currently Logged in: " + currenctUser.getEmail(), Toast.LENGTH_LONG).show();
+            Toast.makeText(Login.this,getResources().getString(R.string.CurrentlyLoggedin) + currenctUser.getEmail(), Toast.LENGTH_LONG).show();
             //startActivity(new Intent(this, MapAndMenu.class));
         }
     }
@@ -219,30 +180,21 @@ public class Login extends AppCompatActivity {
 
                                         }
                                         else{
-                                            Toast.makeText(Login.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, getResources().getString(R.string.faildtologin), Toast.LENGTH_SHORT).show();
                                         }
 
                                     }
                                 });
 
 
-                                Toast.makeText(Login.this, "Authentication Succeeded.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, getResources().getString(R.string.AuthenticationSucceeded), Toast.LENGTH_SHORT).show();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, getResources().getString(R.string.AuthenticationFailed), Toast.LENGTH_SHORT).show();
                             }
                         }
                 });
-
-        // new user
-      // if(facebook == false)
-       //{
-       //    Intent newFacebookIntent = new Intent(Login.this, ProfileSettings.class);
-       //    startActivity(newFacebookIntent);
-       //    finish();
-     //  }
-
 
     }
 
@@ -261,17 +213,17 @@ public class Login extends AppCompatActivity {
         final String password = userPassword.getText().toString();
 
         if (name.isEmpty()){
-            userName.setError("Please enter user name");
+            userName.setError(getResources().getString(R.string.usernameError));
             userName.requestFocus();
             return;
         }
         else if (password.isEmpty()){
-            userPassword.setError("Please enter password");
+            userPassword.setError(getResources().getString(R.string.passwordError));
             userPassword.requestFocus();
             return;
         }
         else if (name.isEmpty() && password.isEmpty()){
-            Toast.makeText(Login.this, "Fields are empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, getResources().getString(R.string.Fieldsareempty), Toast.LENGTH_SHORT).show();
             return;
         }
         else{
@@ -280,7 +232,7 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()){
-                                Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, getResources().getString(R.string.AuthenticationFailed), Toast.LENGTH_SHORT).show();
                             }else{
                                 Intent intent = new Intent(Login.this, MapAndMenu.class);
                                 startActivity(intent);

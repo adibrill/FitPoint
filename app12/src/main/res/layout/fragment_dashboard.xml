@@ -6,6 +6,8 @@
     android:layout_height="match_parent">
 
 
+
+
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="360dp"

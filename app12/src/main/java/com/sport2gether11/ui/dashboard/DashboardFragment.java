@@ -50,7 +50,7 @@ public class DashboardFragment extends Fragment {
 
                 Intent AddWorkoutData = new Intent(getActivity(), WorkoutForm.class);
                 startActivity(AddWorkoutData);
-                Toast.makeText(view.getContext(), "Add Workout Log", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Add Workout Log", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -77,7 +77,6 @@ public class DashboardFragment extends Fragment {
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(15f);
         graph.addSeries(series);
-
 
         return root;
     }

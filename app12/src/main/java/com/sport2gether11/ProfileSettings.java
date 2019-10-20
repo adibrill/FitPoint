@@ -434,14 +434,14 @@ public class ProfileSettings extends AppCompatActivity{
 
             // we have permission
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationListener);
-            Toast.makeText(ProfileSettings.this, "Location Updated" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileSettings.this, getResources().getString(R.string.LocationUpdated) , Toast.LENGTH_SHORT).show();
 
             mDatabase = FirebaseDatabase.getInstance().getReference("Users");
             mDatabase.child(mAuth.getCurrentUser().getUid()).child("position").setValue(locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLatitude()+","+ locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER).getLongitude());
         }
             catch (Exception e)
         {
-            Toast.makeText(this, "Couldn't resolve location, get to a place with reception" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.noreceprion) , Toast.LENGTH_SHORT).show();
         }
         }
     }

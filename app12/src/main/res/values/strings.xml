@@ -33,8 +33,7 @@
     <string name="title_notifications">Workouts</string>
     <string name="title_activity_map_and_menu">MapAndMenu</string>
     <string name="title_activity_workout_log">WorkoutLog</string>
-    <string name="tab_text_1">Past Workouts</string>
-    <string name="tab_text_2">Future Workouts</string>
+
     <string name="Continue">Continue</string>
     <string name="facebook_app_id">395210111399046</string>
     <string name="fb_login_protocol_scheme">fb395210111399046</string>
@@ -65,7 +64,27 @@
     <string name="Climbing">Climbing</string>
     <string name="Dancing">Dancing</string>
     <string name="upload_profile_picture">Upload Profile Picture</string>
-
+<string name="noreceprion">Could not resolve location, get to a place with reception</string>
+    <string name="sendfirstworkout">Send your first workout!</string>
+    <string name="CurrentlyLoggedin">"Currently Logged in: "</string>
+    <string name="faildtologin">Registration Failed!</string>
+    <string name="usernameError">Please enter user name</string>
+    <string name="passwordError">Please enter password</string>
+    <string name="EmailError">Please enter Email</string>
+    <string name="phoneError">Please enter Phone Number</string>
+    <string name="Fieldsareempty">Fields are empty</string>
+    <string name="Approved">Approved :)</string>
+    <string name="NoEntries">No Entries</string>
+    <string name="LocationUpdated">Location Updated</string>
+    <string name="Cancelled">Cancelled :(</string>
+    <string name="Enterusername">Enter username!</string>
+    <string name="Enterpassword">Enter password!</string>
+    <string name="Enteremail">Enter Email!</string>
+    <string name="Enterphone">Enter Phone!</string>
+    <string name="passtooshort">Password too short, enter minimum 6 characters!</string>
+    <string name="AuthenticationSucceeded">Authentication Succeeded</string>
+    <string name="AuthenticationFailed">Authentication Failed</string>
+    <string name="Usernotloggedin">User not logged in</string>
     <string-array name="Sports">
         <item>@string/Yoga</item>
         <item>@string/Running</item>

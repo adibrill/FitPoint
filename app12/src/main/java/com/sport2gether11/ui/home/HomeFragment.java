@@ -302,12 +302,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             }
             catch (Exception e)
             {
-                Toast.makeText( getActivity(), "Couldn't resolve location, get to a place with reception" , Toast.LENGTH_SHORT).show();
+                Toast.makeText( getActivity(), getActivity().getResources().getString(R.string.noreceprion) , Toast.LENGTH_SHORT).show();
             }
 
         }
 
-        //Toast.makeText( getActivity(), "got here!" , Toast.LENGTH_SHORT).show();
 
         LatLng _location = new LatLng(mylat,mylon);
        // Log.i("_location",_location.toString());

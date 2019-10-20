@@ -79,27 +79,27 @@ public class Register extends AppCompatActivity {
         final String username = inputUsername.getText().toString().trim();
 
         if (TextUtils.isEmpty(username)) {
-            Toast.makeText(getApplicationContext(), "Enter username!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Enterusername), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(TextUtils.isEmpty(phoneNumber)){
-            Toast.makeText(getApplicationContext(), "Enter Phone Number!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Enterphone), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(emailInput)) {
-            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Enteremail), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Enterpassword), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (password.length() < 6) {
-            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),  getResources().getString(R.string.passtooshort), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -122,7 +122,7 @@ public class Register extends AppCompatActivity {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-                        Toast.makeText(Register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()){
 
@@ -147,7 +147,7 @@ public class Register extends AppCompatActivity {
                                     "Yoga"
 
                             );
-                            Toast.makeText(Register.this, "User created " + username, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Register.this, "User created " + username, Toast.LENGTH_SHORT).show();
                             FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -155,7 +155,7 @@ public class Register extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()){
-                                        Toast.makeText(Register.this, "Registration Succeded!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Register.this, getResources().getString(R.string.AuthenticationSucceeded), Toast.LENGTH_SHORT).show();
 
                                         Intent i = new Intent(Register.this, ProfileSettings.class);
                                         i.putExtra("username",username);
@@ -164,14 +164,14 @@ public class Register extends AppCompatActivity {
                                         startActivity(i);
                                     }
                                     else{
-                                        Toast.makeText(Register.this, "Registration Failed!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Register.this,  getResources().getString(R.string.AuthenticationFailed), Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
                             });
                         }
                         else if (!task.isSuccessful()) {
-                            Toast.makeText(Register.this, "Authentication failed." + task.getException(),
+                            Toast.makeText(Register.this,  getResources().getString(R.string.AuthenticationFailed) + task.getException(),
                                     Toast.LENGTH_LONG).show();
                             Log.e("MyTag", task.getException().toString());
                         } else {

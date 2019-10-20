@@ -90,14 +90,12 @@ public class MapAndMenu extends AppCompatActivity{
         switch (id){
 
             case R.id.LogoutButton:
-                Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Intent intToMain = new Intent(MapAndMenu.this, Login.class);
                 startActivity(intToMain);
                 break;
 
             case R.id.ProfileUserSettings:
-                Toast.makeText(this, "Loading user settings", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MapAndMenu.this, ProfileSettings.class);
                 startActivity(i);
                 break;
@@ -171,7 +169,7 @@ public class MapAndMenu extends AppCompatActivity{
 
         // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
 
-        Toast.makeText(this, "Approved :)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.Approved), Toast.LENGTH_SHORT).show();
     }
 
     public void OnclickCancelWorkout(View v)
@@ -225,7 +223,7 @@ public class MapAndMenu extends AppCompatActivity{
         });
 
         // mDatabase.child("Workouts").child(generatedString).setValue(workout1);
-        Toast.makeText(this, "Cancelled :(", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.Cancelled), Toast.LENGTH_SHORT).show();
 
 
     }
