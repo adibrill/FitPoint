@@ -62,6 +62,7 @@
     <string name="Surffing">Surffing</string>
     <string name="Climbing">Climbing</string>
     <string name="Dancing">Dancing</string>
+    <string name="upload_profile_picture">Upload Profile Picture</string>
 
     <string-array name="Sports">
        <item>@string/Yoga</item>

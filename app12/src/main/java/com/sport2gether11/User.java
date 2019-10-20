@@ -1,6 +1,7 @@
 package com.sport2gether11;
 
 import android.icu.text.Transliterator;
+import android.net.Uri;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -17,6 +18,10 @@ public class User {
     private String sport1;
     private String sport2;
     private String sport3;
+
+    // ---------------------
+    private Uri imageUri;
+    private String picKey;
 
     private int level;
     private int userAge;
@@ -54,6 +59,22 @@ public class User {
     }
 
     public User() {
+    }
+    //------------------
+    public Uri getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public String getPicKey() {
+        return picKey;
+    }
+
+    public void setPicKey(String picKey) {
+        this.picKey = picKey;
     }
 
     public int getUserAge() {

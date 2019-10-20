@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,27 +17,49 @@ import android.graphics.RadialGradient;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import android.content.Context;
+import android.content.ContentResolver;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.security.AccessController.getContext;
 
 public class ProfileSettings extends AppCompatActivity{
 
@@ -49,6 +72,21 @@ public class ProfileSettings extends AppCompatActivity{
     Spinner spinner2;
     Spinner spinner3;
 
+
+
+    //---------------
+    private ImageView image_profile;
+    private StorageReference storageReference;
+    private DatabaseReference mDatabaseRef;
+    private static final int IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private Button uploadPictureButton;
+    private StorageTask uploadTask;
+    private FirebaseUser fuser;
+    private Uri downloadImageUrl;
+
+
+
     private String userid;
 
 
@@ -57,6 +95,15 @@ public class ProfileSettings extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         mAuth = FirebaseAuth.getInstance();
+
+
+        //-----------------------
+        image_profile = findViewById(R.id.imageView);
+        uploadPictureButton = (Button) findViewById(R.id.UploadPictureBtn);
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         spinner1 = (Spinner) findViewById(R.id.spinnersport1);
@@ -72,6 +119,47 @@ public class ProfileSettings extends AppCompatActivity{
         numpicker.setDisplayedValues( new String[] { getResources().getString(R.string.MorningandbeforeNoon) ,getResources().getString(R.string.Eveningandnight) , getResources().getString(R.string.AllDay)} );
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+
+
+        uploadPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+                //uploadFile();
+            }
+        });
+        //-----------------
+        mDatabaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(dataSnapshot.exists()) {
+
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+                        //todo
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mDatabase.addChildEventListener(new ChildEventListener() {
               @Override
@@ -167,10 +255,81 @@ public class ProfileSettings extends AppCompatActivity{
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationListener);
         }
     }
+    // --------------------------
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    private void uploadFile() {
+        if (imageUri != null){
+
+            StorageReference fileRef = storageReference.child(System.currentTimeMillis() +
+                    "." + getFileExtension(imageUri));
+
+            fileRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // This part is for progress bar if we want to add in the future
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            }, 5000);
+                            Toast.makeText(ProfileSettings.this,"Upload successful", Toast.LENGTH_SHORT).show();
+
+                            Upload upload = new Upload(mAuth.getCurrentUser().getUid(),
+                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+
+                            String uploadId = mDatabaseRef.push().getKey();
+                            mDatabaseRef.child(uploadId).setValue(upload);
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileSettings.this,"Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+
+                }
+            });
+
+        }else {
+            Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // --------------------------
+    private void openFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+    // --------------------------
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_REQUEST && data != null && data.getData() != null){
+
+            imageUri = data.getData();
+            image_profile.setImageURI(imageUri);
+            Toast.makeText(this,"Image picked!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void onClickContinue(View V){
 
-
+        uploadFile();
        //todo - add writing to firebase
 
         mAuth = FirebaseAuth.getInstance();

@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "286070254750-mb6iu3qubkgpeuu1sbbdeqt7vvofk3t8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sport2gether11",
+            "certificate_hash": "217c8c361a6fb995d0b00df44375c3464ec3079e"
+          }
+        },
+        {
+          "client_id": "286070254750-egsdeu3k8ci090igmvc3n21990npjens.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sport2gether11",
+            "certificate_hash": "1005e819072c070221454a937e4867f6915dc7b3"
+          }
+        },
+        {
           "client_id": "286070254750-hr8j59g7do59ue5rlu0cojpfpm2dp0ol.apps.googleusercontent.com",
           "client_type": 3
         }
