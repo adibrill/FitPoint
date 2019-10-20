@@ -1,7 +1,10 @@
 package com.sport2gether11.ui.dashboard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +23,17 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.*;
+import com.sport2gether11.MapAndMenu;
 import com.sport2gether11.MemberProfileActivity;
+import com.sport2gether11.ProfileSettings;
 import com.sport2gether11.R;
+import com.sport2gether11.WorkoutForm;
 
 
 public class DashboardFragment extends Fragment {
+
+    private String EntriesCountStr = "0";
+    private int EntriesCountInt = 0;
 
     private DashboardViewModel dashboardViewModel;
 
@@ -44,11 +53,12 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                Intent AddWorkoutData = new Intent(getActivity(), WorkoutForm.class);
+                startActivity(AddWorkoutData);
                 Toast.makeText(view.getContext(), "Add Workout Log", Toast.LENGTH_SHORT).show();
 
             }
         });
-
 
         GraphView graph = (GraphView)root.findViewById(R.id.graph);
 
@@ -56,27 +66,18 @@ public class DashboardFragment extends Fragment {
         graph.getViewport().setScrollableY(true);
         graph.getViewport().setScalable(true);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12","13", "14", "15","16", "17", "18","19", "20", "21","22", "23", "24","25"});
-        staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12"});
+        //staticLabelsFormatter.setHorizontalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12","13", "14", "15","16", "17", "18","19", "20", "21","22", "23", "24","25"});
+        //staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12"});
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 3),
-                new DataPoint(2, 4),
-                new DataPoint(3, 5),
-                new DataPoint(4, 5),
-                new DataPoint(5, 6),
-                new DataPoint(6, 6.6),
-                new DataPoint(7, 7.5),
-                new DataPoint(8, 8),
-                new DataPoint(9, 8.1),
-                new DataPoint(10, 8.5),
-                new DataPoint(11, 9),
-                new DataPoint(12, 9.1),
-                new DataPoint(13, 9.9),
-                new DataPoint(14, 10)
 
-        });
+        SharedPreferences pref = getContext().getSharedPreferences("Entries", Context.MODE_MULTI_PROCESS); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+
+        pref.getString("EntriesCount", EntriesCountStr);
+
+
+        EntriesCountInt = Integer.parseInt(EntriesCountStr);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(data(EntriesCountInt));
 
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(15f);
@@ -86,5 +87,21 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
+    public DataPoint[] data(int size){
+        String datapointString = "";
+        String datapoint[];
+        int n=size;     //to find out the no. of data-points
+        DataPoint[] values = new DataPoint[n];     //creating an object of type DataPoint[] of size 'n'
+        for(int i=0;i<n;i++){
+            SharedPreferences pref = getContext().getSharedPreferences("WorkEntry"+i, 0);
+            pref.getString("WorkEntry"+i,datapointString);
 
+            Log.e("datapointString",datapointString);
+
+            datapoint = datapointString.split(",");
+            DataPoint v = new DataPoint(Double.parseDouble(datapoint[0]),Double.parseDouble(datapoint[i]));
+            values[i] = v;
+        }
+        return values;
+    }
 }

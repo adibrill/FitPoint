@@ -22,6 +22,8 @@
     <string name="title_activity_map">מפה</string>
     <string name="greeting">היי,אני מFitPoint בוא נקבע איפה להיפגש :)</string>
     <string name="title_home">מפה</string>
+    <string name="DeleteLast">מחק אחרון</string>
+    <string name="upload_profile_picture">הוספת תמונה</string>
     <string name="title_dashboard">סטטיסטיקה</string>
     <string name="title_notifications">אימונים</string>
     <string name="title_activity_map_and_menu">מפה</string>

@@ -23,6 +23,7 @@
     <string name="signup">Sign Up</string>
     <string name="greeting">hi,i am from Fitpoint lets decide where to meet :)</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="DeleteLast">Delete Last</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
@@ -66,7 +67,7 @@
     <string name="upload_profile_picture">Upload Profile Picture</string>
 
     <string-array name="Sports">
-       <item>@string/Yoga</item>
+        <item>@string/Yoga</item>
         <item>@string/Running</item>
         <item>@string/Cycling</item>
         <item>@string/Basketball</item>
