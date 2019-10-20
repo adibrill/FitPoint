@@ -4,15 +4,20 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +29,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,13 +56,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.sport2gether11.MapAndMenu;
 import com.sport2gether11.MemberProfileActivity;
 import com.sport2gether11.ProfileSettings;
 import com.sport2gether11.R;
 import com.sport2gether11.User;
+import com.bumptech.glide.Glide;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
@@ -301,13 +321,58 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         String latitude = user.getPosition().substring(0,user.getPosition().indexOf(','));
         String longtitude = user.getPosition().substring(user.getPosition().indexOf(',')+1);
 
-            MarkerOptions mo = new MarkerOptions().position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude))).title(user.getUserName()).snippet(user.getUserName());
-
-            _gmap.addMarker(mo).showInfoWindow();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
 
+        try {
+            StorageReference fileRef = storageReference.child(user.getUserName() + ".jpg");
+
+            fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+
+                    ColorDrawable cd = new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                    Glide.with(getActivity())
+                            .asBitmap()
+                            .load(uri.toString())
+                            .listener(new RequestListener<Bitmap>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+
+                                    MarkerOptions mo = new MarkerOptions()
+                                            .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
+                                            .title(user.getUserName())
+                                            .snippet(user.getUserName());
+
+                                    _gmap.addMarker(mo).showInfoWindow();
 
 
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                    Bitmap resizedBitmap = Bitmap.createScaledBitmap(resource, 100, 100, false);
+
+                                    MarkerOptions mo = new MarkerOptions()
+                                            .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
+                                            .title(user.getUserName())
+                                            .snippet(user.getUserName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap));
+
+                                    _gmap.addMarker(mo).showInfoWindow();
+
+                                    return true;
+
+                                }
+                            }).preload();
+                    }
+                });
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 }
 

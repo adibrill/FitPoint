@@ -226,35 +226,5 @@ public class MapAndMenu extends AppCompatActivity{
 
     }
 
-    /*
-    public void onUserNameClicked(View v)
-    {
 
-
-        Intent i = new Intent(this,MemberProfileActivity.class);
-        final TextView partnername =(TextView)v.getRootView().findViewById(R.id.PartnerName);
-        i.putExtra("PartnerUserName",partnername.getText().toString());
-
-            Log.i("partnername",partnername.getText().toString());
-
-        if(getIntent() != null)
-        {
-            sport1=getIntent().getStringExtra("sport1");
-            sport2=getIntent().getStringExtra("sport2");
-            sport3=getIntent().getStringExtra("sport3");
-
-            i.putExtra("sport1",sport1);
-            i.putExtra("sport2",sport2);
-            i.putExtra("sport3",sport3);
-        }
-        else
-        {
-            i.putExtra("yoga","sport1");
-            i.putExtra("yoga","sport2");
-            i.putExtra("yoga","sport3");
-        }
-
-        startActivity(i);
-    }
-        */
 }

@@ -281,7 +281,7 @@ public class MemberProfileActivity extends AppCompatActivity {
 
                                     workout1.setTimeStamp(dateselected + " " + timeselected);
 
-                                    mDatabase.child("Workouts").child(generatedString).setValue(workout1);
+                                    mDatabase.child(generatedString).setValue(workout1);
 
                                     Snackbar.make(view, getResources().getString(R.string.Workoutregistered), Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
