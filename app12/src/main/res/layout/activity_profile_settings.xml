@@ -151,7 +151,7 @@
 
     <TextView
         android:id="@+id/timeofdaytext"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="31dp"
         android:layout_marginTop="300dp"
         android:layout_marginBottom="281dp"
