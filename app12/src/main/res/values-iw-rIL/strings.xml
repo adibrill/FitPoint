@@ -38,6 +38,7 @@
     <string name="Continue">המשך</string>
     <string name="signup">הרשמה</string>
     <string name="Signin">התחברות</string>
+    <string name="timespan">משך האימון</string>
     <string name="BestHours">שעות לבחירה:</string>
     <string name="rutine">שגרת אימונים שבועית:</string>
     <string name="facebook_app_id">395210111399046</string>
