@@ -152,8 +152,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
             holder.cancelbutton.setVisibility(View.INVISIBLE);
         }
 
-
-
         if(currentWork.getmStatus().equals("approved")) {
             holder.whatsappbutton.setVisibility(View.VISIBLE);
             holder.callbutton.setVisibility(View.VISIBLE);

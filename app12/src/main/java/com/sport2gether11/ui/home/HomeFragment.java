@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -31,6 +32,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.Target;
@@ -339,18 +341,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
 
-                                    MarkerOptions mo = new MarkerOptions()
-                                            .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
-                                            .title(user.getUserName())
-                                            .snippet(user.getUserName());
 
-                                    _gmap.addMarker(mo).showInfoWindow();
                                     return false;
                                 }
 
                                 @Override
                                 public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                                     Bitmap resizedBitmap = Bitmap.createScaledBitmap(resource, 150, 150, false);
+
 
                                     MarkerOptions mo = new MarkerOptions()
                                             .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
@@ -365,7 +363,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                                 }
                             }).preload();
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Drawable d = getResources().getDrawable(R.drawable.th);
+                    Bitmap empty_bitmap = ((BitmapDrawable)d).getBitmap();
+
+
+                    MarkerOptions mo = new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
+                            .title(user.getUserName())
+                            .snippet(user.getUserName())
+                            .icon(BitmapDescriptorFactory.fromBitmap(empty_bitmap));
+
+                    _gmap.addMarker(mo).showInfoWindow();
+                }
+            });
         }
         catch (Exception e)
         {
