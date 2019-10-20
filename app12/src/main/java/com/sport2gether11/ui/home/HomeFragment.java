@@ -345,14 +345,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                                             .snippet(user.getUserName());
 
                                     _gmap.addMarker(mo).showInfoWindow();
-
-
                                     return false;
                                 }
 
                                 @Override
                                 public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                    Bitmap resizedBitmap = Bitmap.createScaledBitmap(resource, 100, 100, false);
+                                    Bitmap resizedBitmap = Bitmap.createScaledBitmap(resource, 150, 150, false);
 
                                     MarkerOptions mo = new MarkerOptions()
                                             .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))

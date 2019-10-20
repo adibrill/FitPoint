@@ -170,8 +170,6 @@ public class WorkoutsListAdapter extends RecyclerView.Adapter<WorkoutsListAdapte
                                     User find_user = npsnapshot.getValue(User.class);
                                     if (find_user.getUserName().equals(holder.mName.getText())) {
 
-
-
                                         try {
                                             String text = "hi, lets decide where to meet :)";// Replace with your message.
 
