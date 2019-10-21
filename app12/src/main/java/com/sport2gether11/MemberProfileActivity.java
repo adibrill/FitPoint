@@ -152,7 +152,35 @@ public class MemberProfileActivity extends AppCompatActivity {
                                             level.setText("5+");
                                             break;
                                     }
-                                   Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString()+","+partner.getSport3().toString());
+
+                                    if(partner.getSport1().equals(partner.getSport2()) && partner.getSport3().equals(partner.getSport2()))
+                                    {
+                                        Preferences.setText(partner.getSport1().toString());
+                                    }
+                                    else
+                                    {
+                                        if(partner.getSport1().equals(partner.getSport2()))
+                                        {
+                                            Preferences.setText(partner.getSport1().toString()+","+partner.getSport3().toString());
+                                        }
+                                        else if(partner.getSport1().equals(partner.getSport3()))
+                                        {
+                                            Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString());
+                                        }
+                                        else if(partner.getSport2().equals(partner.getSport3()))
+                                        {
+                                            Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString());
+
+                                        }
+                                        else
+                                        {
+                                            Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString()+","+partner.getSport3().toString());
+
+                                        }
+
+
+                                    }
+                                   //Preferences.setText(partner.getSport1().toString()+","+partner.getSport2().toString()+","+partner.getSport3().toString());
 
                                     if(mysport1 != null && mysport2 != null && mysport3 != null)
                                     {
