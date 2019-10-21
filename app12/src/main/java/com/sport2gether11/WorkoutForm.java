@@ -4,23 +4,31 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class WorkoutForm extends AppCompatActivity {
 
-
     public String EntriesCountStr = "0";
     public int EntriesCountInt;
+    NumberPicker HoursPick;
+     NumberPicker MinutesPick;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_form);
+        HoursPick = findViewById(R.id.pickhours);
+        MinutesPick = findViewById(R.id.pickminutes);
+        MinutesPick.setMinValue(0);
+        MinutesPick.setMaxValue(59);
+        HoursPick.setMinValue(0);
+        HoursPick.setMaxValue(2);
     }
 
     public void OnClickWorkoutFormAdded(View view)
@@ -28,15 +36,23 @@ public class WorkoutForm extends AppCompatActivity {
 
         SharedPreferences pref = this.getSharedPreferences("Entries", MODE_WORLD_WRITEABLE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
+        String LastEntriesCountStrarr[];
+        int hours = HoursPick.getValue();
+        int minutes = MinutesPick.getValue();
 
+        double points =  (((hours*60)/15)*0.2) + ((minutes/15)*0.2);
 
         EntriesCountStr = pref.getString("EntriesCount", EntriesCountStr);
+        String LastEntriesCountStr = "";
         Log.e("EntriesCountStr-inform",EntriesCountStr);
         EntriesCountInt = Integer.parseInt(EntriesCountStr);
+
+        LastEntriesCountStr = pref.getString("WorkEntry"+Integer.toString(EntriesCountInt-1), LastEntriesCountStr);
+        LastEntriesCountStrarr = LastEntriesCountStr.split(",");
         //
         // todo calculate
         //
-        editor.putString("WorkEntry"+Integer.toString(EntriesCountInt), Integer.toString(EntriesCountInt)+","+Integer.toString(EntriesCountInt));
+        editor.putString("WorkEntry"+Integer.toString(EntriesCountInt), Integer.toString(EntriesCountInt)+","+Double.toString(points + Double.parseDouble(LastEntriesCountStrarr[1])));
         Log.e("WorkEntry-inform",Integer.toString(EntriesCountInt+1)+","+Integer.toString(EntriesCountInt+1));
         ////
 
