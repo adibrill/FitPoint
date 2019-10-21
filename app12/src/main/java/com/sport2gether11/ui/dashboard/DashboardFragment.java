@@ -60,6 +60,7 @@ public class DashboardFragment extends Fragment {
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScrollableY(true);
         graph.getViewport().setScalable(true);
+        graph.getViewport().setDrawBorder(true);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         //staticLabelsFormatter.setHorizontalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12","13", "14", "15","16", "17", "18","19", "20", "21","22", "23", "24","25"});
         //staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2","3", "4", "5","6", "7", "8","9", "10", "11","12"});
