@@ -7,6 +7,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -339,6 +344,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             .asBitmap()
                             .load(uri.toString())
                             .listener(new RequestListener<Bitmap>() {
+
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
 
@@ -349,12 +355,39 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                                 @Override
                                 public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                                     Bitmap resizedBitmap = Bitmap.createScaledBitmap(resource, 150, 150, false);
+                                    Bitmap finalBitmap;
+                                    //////crop image
+
+                                    if(resizedBitmap.getWidth() != 150 || resizedBitmap.getHeight() != 150)
+                                        finalBitmap = Bitmap.createScaledBitmap(resizedBitmap, 150, 150, false);
+                                    else
+                                        finalBitmap = resizedBitmap;
+                                    Bitmap output = Bitmap.createBitmap(finalBitmap.getWidth(),
+                                            finalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+                                    Canvas canvas = new Canvas(output);
+
+                                    final Paint paint = new Paint();
+                                    final Rect rect = new Rect(0, 0, finalBitmap.getWidth(), finalBitmap.getHeight());
+
+                                    paint.setAntiAlias(true);
+                                    paint.setFilterBitmap(true);
+                                    paint.setDither(true);
+                                    canvas.drawARGB(0, 0, 0, 0);
+                                    paint.setColor(Color.parseColor("#BAB399"));
+                                    canvas.drawCircle(finalBitmap.getWidth() / 2+0.7f, finalBitmap.getHeight() / 2+0.7f,
+                                            finalBitmap.getWidth() / 2+0.1f, paint);
+                                    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+                                    canvas.drawBitmap(finalBitmap, rect, rect, paint);
+
+
+
+                                    ////done cropping image
 
                                     MarkerOptions mo = new MarkerOptions()
                                             .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
                                             .title(user.getUserName())
                                             .snippet(user.getUserName())
-                                            .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap));
+                                            .icon(BitmapDescriptorFactory.fromBitmap(output));
 
                                     _gmap.addMarker(mo).showInfoWindow();
 
@@ -368,13 +401,39 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 public void onFailure(@NonNull Exception e) {
                     Drawable d = getResources().getDrawable(R.drawable.th);
                     Bitmap empty_bitmap = ((BitmapDrawable)d).getBitmap();
+                    Bitmap finalBitmap;
+                    //////crop image
 
+                    if(empty_bitmap.getWidth() != 150 || empty_bitmap.getHeight() != 150)
+                        finalBitmap = Bitmap.createScaledBitmap(empty_bitmap, 150, 150, false);
+                    else
+                        finalBitmap = empty_bitmap;
+                    Bitmap output = Bitmap.createBitmap(finalBitmap.getWidth(),
+                            finalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+                    Canvas canvas = new Canvas(output);
+
+                    final Paint paint = new Paint();
+                    final Rect rect = new Rect(0, 0, finalBitmap.getWidth(), finalBitmap.getHeight());
+
+                    paint.setAntiAlias(true);
+                    paint.setFilterBitmap(true);
+                    paint.setDither(true);
+                    canvas.drawARGB(0, 0, 0, 0);
+                    paint.setColor(Color.parseColor("#BAB399"));
+                    canvas.drawCircle(finalBitmap.getWidth() / 2+0.7f, finalBitmap.getHeight() / 2+0.7f,
+                            finalBitmap.getWidth() / 2+0.1f, paint);
+                    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+                    canvas.drawBitmap(finalBitmap, rect, rect, paint);
+
+
+
+                    ////done cropping image
 
                     MarkerOptions mo = new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude)))
                             .title(user.getUserName())
                             .snippet(user.getUserName())
-                            .icon(BitmapDescriptorFactory.fromBitmap(empty_bitmap));
+                            .icon(BitmapDescriptorFactory.fromBitmap(output));
 
                     _gmap.addMarker(mo).showInfoWindow();
                 }

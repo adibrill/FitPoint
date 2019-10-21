@@ -196,8 +196,6 @@ public class NotificationsFragment extends Fragment {
                       });
         //workoutlog.add(new WorkoutItem(R.drawable.ic_menu_camera,"Jenny","2019/10/18 20:00","Approved"));
         return root;
-
-
         //getActivity().fmanager.beginTransaction().detach(this).attach(this).commit();
     }
 
