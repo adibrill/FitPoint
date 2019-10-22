@@ -19,15 +19,19 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/PartnerImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:gravity="center"
+            android:layout_height="160dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="239dp"
-            android:layout_marginLeft="239dp"
+            android:layout_marginLeft="105dp"
+            android:scaleType="centerCrop"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
             android:layout_marginTop="25dp"
             android:padding="2dp"
             app:srcCompat="@drawable/th" />
@@ -35,11 +39,12 @@
         <TextView
             android:id="@+id/PartnerName"
             android:layout_width="wrap_content"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="-317dp"
-            android:layout_marginTop="82dp"
-            android:layout_toRightOf="@+id/PartnerImage"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="180dp"
+            android:layout_below="@+id/PartnerImage"
             android:text="PartnerName"
             android:textSize="25dp" />
 
@@ -53,19 +58,21 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="0dp"
+            android:gravity="center"
             android:text="Morning Hours"
-            android:textSize="25dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/BestHoursDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/PartnerImage"
+            android:layout_below="@+id/PartnerName"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="13dp"
+            android:gravity="center"
             android:text="@string/BestHours"
             android:textSize="20dp" />
 
@@ -79,6 +86,7 @@
             android:layout_marginStart="22dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="9dp"
+            android:gravity="center"
             android:text="@string/rutine"
             android:textSize="20dp" />
 
@@ -92,8 +100,9 @@
             android:layout_marginStart="22dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="0dp"
+            android:gravity="center"
             android:text="2-3"
-            android:textSize="25dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/PreferencesDisplay"
@@ -105,6 +114,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="0dp"
+            android:gravity="center"
             android:text="@string/preferences"
             android:textSize="20dp" />
 
@@ -118,8 +128,9 @@
             android:layout_marginStart="22dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="0dp"
+            android:gravity="center"
             android:text="Running,Yoga,Cycling"
-            android:textSize="25dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/selectDisplay2"
@@ -143,6 +154,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="0dp"
+            android:gravity="center"
             android:text="@string/Chooseworkout"
             android:textSize="20dp" />
 
@@ -152,6 +164,7 @@
             android:layout_height="50dp"
             android:layout_below="@id/SelectDisplay"
             android:background="#25FFFFFF"
+            android:gravity="center_horizontal"
             android:spinnerMode="dialog"
             android:textColor="#000000" />
 

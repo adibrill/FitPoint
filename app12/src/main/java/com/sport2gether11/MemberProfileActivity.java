@@ -74,8 +74,6 @@ public class MemberProfileActivity extends AppCompatActivity {
 
         try {
 
-
-
             //String imageurl = "https://firebasestorage.googleapis.com/v0/b/fitpoint-e4673.appspot.com/o/uploads%2F"+mAuth.getCurrentUser().getDisplayName()+".jpg?alt=media&token=a215d873-a6cf-4796-ac26-3598e11167c0";
 
             StorageReference fileRef = storageReference.child(partner_username + ".jpg");
