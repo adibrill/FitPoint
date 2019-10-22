@@ -23,6 +23,7 @@
             android:id="@+id/PartnerImage"
             android:layout_width="160dp"
             android:gravity="center"
+            android:src="@drawable/th"
             android:layout_height="160dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
