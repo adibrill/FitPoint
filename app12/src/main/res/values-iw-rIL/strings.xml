@@ -39,8 +39,8 @@
     <string name="signup">הרשמה</string>
     <string name="Signin">התחברות</string>
     <string name="timespan">משך האימון</string>
-    <string name="BestHours">שעות לבחירה:</string>
-    <string name="rutine">שגרת אימונים שבועית:</string>
+    <string name="BestHours">שעות לבחירה</string>
+    <string name="rutine">שגרת אימונים שבועית</string>
     <string name="facebook_app_id">395210111399046</string>
     <string name="fb_login_protocol_scheme">fb395210111399046</string>
     <string name="username">שם משתמש</string>
@@ -52,7 +52,7 @@
     <string name="SelectWorkout">בחר אימון</string>
     <string name="phone_number">מספר טלפון</string>
     <string name="preferences">העדפות</string>
-    <string name="Chooseworkout">בחר אימון:</string>
+    <string name="Chooseworkout">בחר אימון</string>
     <string name="updatelocation">עדכן מיקום</string>
     <string name="usernameError">הכנס שם משתמש</string>
     <string name="passwordError">הכנס סיסמא</string>
