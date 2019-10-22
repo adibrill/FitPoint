@@ -317,7 +317,12 @@ public class MemberProfileActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.workoutalreadyexistswiththispartner), Toast.LENGTH_SHORT).show();
+
+                            FloatingActionButton fab = findViewById(R.id.fab);
+                            fab.setOnClickListener(view -> {
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.workoutalreadyexistswiththispartner), Toast.LENGTH_SHORT).show();
+                                    });
+
                            // Snackbar.make(, getResources().getString(R.string.Workoutregistered), Snackbar.LENGTH_LONG)
                             //        .setAction("Action", null).show();
 
