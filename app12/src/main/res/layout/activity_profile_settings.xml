@@ -7,7 +7,7 @@
     tools:context=".ProfileSettings">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userimageView"
         android:layout_width="170dp"
         android:layout_height="170dp"
@@ -21,6 +21,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
         tools:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />

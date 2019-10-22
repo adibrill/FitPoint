@@ -14,12 +14,12 @@
     <string name="menu_gallery">Gallery</string>
     <string name="Signin">Sign In</string>
     <string name="chooseaworkouttype">Choose a Workout type</string>
-    <string name="BestHours">Best Hours:</string>
+    <string name="BestHours">Best Hours</string>
     <string name="Workoutregistered">Workout registered</string>
     <string name="workoutalreadyexistswiththispartner">workout already exists with this partner</string>
     <string name="preferences">Preferences</string>
-    <string name="Chooseworkout">Choose workout:</string>
-    <string name="rutine">Usual weekly workout routine:</string>
+    <string name="Chooseworkout">Choose workout</string>
+    <string name="rutine">Usual weekly workout routine</string>
     <string name="signup">Sign Up</string>
     <string name="greeting">hi,i am from Fitpoint lets decide where to meet :)</string>
     <string name="menu_slideshow">Slideshow</string>
